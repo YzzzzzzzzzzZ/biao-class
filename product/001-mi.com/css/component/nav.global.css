@@ -1,0 +1,13 @@
+.nav.global {
+    background: #333;
+    color: #b0b0b0;
+    padding: 10px;
+}
+
+.nav.global a {
+    color: inherit;
+    padding: 5px;
+}
+.nav.global a:hover{
+    color:#fff;
+}

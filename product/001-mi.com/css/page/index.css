@@ -1,0 +1,117 @@
+.main-promotion {
+    background-image: url(../../img/main-promotionbg.jpg); /*背景图*/
+    background-position: center; /*背景图定位*/
+    background-size: contain; /*背景图尺寸限制方式*/
+    background-repeat: no-repeat; /*不重复*/
+}
+.main-promotion a {
+    display: block;
+    padding: 13px 90px 13px 20px;
+    background: #626262;
+    color: #fff;
+    font-size: 1.1rem;
+  
+}
+.main-promotion a:hover {
+    background: #ff6700;
+}
+.main-promotion a:first-child {
+    /* padding-top: 40px; */
+}
+.main-promotion a:last-child {
+    padding-bottom: 40px;
+}
+/* .main-promotion-left a {
+    padding-top: 50px;
+} */
+.incidental-promotion {
+    margin-top: 20px;
+}
+.incidental-promotion .card {
+    background-image: url(../../img/incidental-promotionbg.jpg);
+    /* background-position: center; */
+     /*背景图定位*/
+    /* background-size: contain; */
+     /*背景图尺寸限制方式*/
+    /* background-repeat: no-repeat;  */
+    /*不重复*/
+    /* width: 316px; */
+    /* height: 170px; */
+    /* background: #ccc;    */
+    height: 170px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.incidental-promotion .row {
+    margin: 0 -10px;
+}
+.incidental-promotion .col-lg-3 {
+    padding: 0 10px;
+}
+.fast-buy {
+    margin: 0 -10px;
+}
+.fast-buy .col-5 {
+    width: 20%;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 1rem;
+    padding: 0 10px;
+}
+.fast-buy .card {
+    background: #ccc;
+    height: 100px;
+    margin-top: 10px;
+}
+.main-cat {
+    margin: 0 -10px;
+}
+.main-cat .col-2 {
+    width: 20%;
+    padding: 0 10px;
+}
+.main-cat .col-8 {
+    width: 80%;
+    padding: 0 10px;
+}
+.main-cat .card {
+    background: #ccc;
+    height: 100px;
+    margin-top: 10px;
+}
+.fast-buy .card{
+    width:160px;
+    height:160px;
+    background:#fafafa;
+    border-top:2px solid red;
+}
+.fast-buy .card img{
+    display:block;
+    margin: 0 auto 22px;
+}
+.fast-buy{
+    margin-bottom: 200px;
+}
+.fast-buy span{
+    display:block;
+    text-align: center;
+    padding:0 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.fast-buy .title{
+    font-size:16px;
+    line-height: 16px;
+    margin-bottom:5px;
+}
+.fast-buy .title_name{
+    margin-bottom:10px;
+}
+.long_jpg img{
+    width:234px;
+    height:614px;
+}
+.right_imgs>div{
+    display:inline-block;
+}

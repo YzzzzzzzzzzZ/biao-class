@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Microsoft Yahei';
+}
+
+.row {
+  font-size: 0;
+}
+
+.col {
+  display: inline-block;
+  font-size: 16px;
+  vertical-align: top;
+}
+
+.comtainer {
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.clearfix::after {
+  content: "." width: 100%;
+  height: 0;
+  visibility: hidden;
+  clear: both;
+}

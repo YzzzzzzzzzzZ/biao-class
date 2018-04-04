@@ -1,0 +1,133 @@
+.smallcontainer {
+    /* margin-left: auto;
+    margin-right: auto;  */
+    text-align: center;
+}
+.row.middle {
+    background: url(../../img/loginhongmi5plus.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 0;
+    height: 588px;
+    width: 100%;
+}
+.login-form {
+    width: 500px;
+    /* height: auto; */
+    background: #ffffff;
+    position: relative;
+    top: 40px;
+    left: 780px;
+}
+.first-row {
+    padding: 30px 10px;
+}
+.first-row *{
+    font-size: 1.8rem;
+}
+.first-row a:first-child {
+    color:#f56600;
+}
+.first-row a:last-child {
+    color: #666666;
+}
+.first-row a:last-child:hover {
+    color: #f56600;
+}
+.first-row span {
+    margin: 0 40px;
+}
+.account {
+    padding: 15px 5px;
+    width: 350px;
+}
+.account-wrapper {
+    margin-bottom: 20px;
+}
+.password {
+    padding: 15px 5px;
+    width: 350px;
+}
+.password-wrapper {
+    margin-bottom: 20px;
+}
+.button {
+    padding: 15px 5px;
+    width: 350px;
+    background: #f56600;
+    border: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+.last-row {
+    padding: 10px 10px;
+}
+.last-row *{
+    margin: 0 60px;
+}
+.last-row a:first-child {
+    display: inline-block;
+    color:#f56600;
+    
+}
+.last-row a:last-child {
+    color: #666666;
+}
+.last-row a:last-child:hover {
+    color: #f56600;
+}
+/* .first-row { */
+    /* text-align: center; */
+    /* padding-top: 10px;
+} */
+/* .first-row a {
+    padding: 10px;
+} */
+/* .first-row a::after {
+    content: " |";
+    color: #666666;
+} */
+/* .first-row a:first-child{
+    color:#f56600;
+    display: inline-block;
+    font-size: 1.8rem;
+
+}
+.first-row a:last-child {
+    display: inline-block;
+    color: #666666;
+    font-size: 1.8rem;
+}
+.first-row a:last-child::after {
+    content: "";
+
+} */
+/* .account-wrapper {
+    padding-left: 70px;
+    margin: 20px 0;
+}
+.account { 
+    padding: 10px 10px;
+    width: 350px;
+}
+.password-wrapper {
+    padding-left: 70px;
+    margin: 20px 0;
+}
+.password{ 
+    padding: 10px 10px;
+    width: 350px;
+}
+.button-wrapper {
+    
+    padding-left: 70px;
+    margin: 20px 0;
+}
+.button {
+    background: #f56600;
+    width: 350px;
+    padding: 12px 10px;
+    border: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+} */

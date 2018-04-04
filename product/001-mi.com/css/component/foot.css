@@ -1,0 +1,48 @@
+.footer-top .col-5 {
+    width: 20%;
+    padding:  8px 30px;
+    text-align: center;
+    border-right:1px solid black;
+    margin: 20px 0;
+}
+.footer-top .col-5:last-child {
+    border: none;
+}
+.footer-top .col-5 a {
+    display: inline-block;
+    /* width: 20%; */
+    color: #707270;
+    font-size: 1.2rem;
+}
+.footer-middle .col-lg-10 .col-lg-2 span {
+    display: inline-block;
+    padding: 8px;
+    font-size: 1.2rem;
+}
+.footer-middle .col-lg-10 .col-lg-2 a {
+    display: block;
+    padding: 10px 8px;
+    font-size: 0.9rem;
+    color: #999;    
+}
+.footer-middle .right {
+  text-align: center;
+  font-size: 0.8rem;
+  /* padding: 10px px 0 0;   */
+  border-left: 1px solid #ccc;
+  position: relative;
+  right: 41px;
+}
+.footer-middle .right .number {
+    color: #ff6b00;
+    font-size: 1.4rem;
+    padding-bottom: 5px;
+}
+.footer-middle .right button {
+    background: #fff;
+    /* padding-top: 20px; */
+    padding: 10px;
+    margin-top: 15px;
+    width: 100px;
+    border: 1px solid #ff6b00;
+}

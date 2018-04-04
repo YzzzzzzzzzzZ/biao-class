@@ -1,0 +1,173 @@
+/*======title=======*/
+
+.title {
+  margin: 10px 0;
+}
+
+.title .sub {
+  font-size: 1.25rem;
+  color: #4d90fe;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.title .more {
+  text-align: right;
+  margin-top: 10px;
+  font-size: .875rem;
+
+}
+
+/*======title end============*/
+
+.nav-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: #4d90fe;
+  border-bottom: 2px solid #fff;
+  z-index: 100;
+}
+
+.nav-area .name {
+  font-size: 1.8rem;
+  color: #fff;
+  line-height: 70px;
+}
+
+.nav-area .nav {
+  text-align: right;
+}
+
+.nav-area .nav a {
+  font-size: .875rem;
+  color: #eee;
+  line-height: 70px;
+  padding: 10px
+}
+
+.nav-area .nav a:hover {
+  color: #4d90fe;
+  background: #fff;
+}
+
+.info {
+  margin-top: 70px;
+}
+
+.info .photo {
+  margin-top: 50px;
+}
+
+.info .person-info {
+  margin-top: 50px;
+}
+
+.info .person-info li {
+  font-size: 1rem;
+  color: #666;
+  padding: 5px;
+  list-style: none;
+}
+
+#exp ul li span,
+.info .person-info li span {
+  color: #4d90fe;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.info .person-info li span {
+  width: 120px;
+  color: #4d90fe;
+  font-weight: bold;
+  display: inline-block;
+}
+
+#contact,
+#project,
+#exp {
+  margin-top: 40px;
+}
+
+#contact,
+#project{
+  background: #4d90fe;
+  padding: 20px 0;
+}
+
+
+#contact .title .sub,
+#project .title .sub{
+  color: #fff;
+}
+
+#project .item{
+  padding: 4px;
+}
+
+#project .item .item-con{
+  border-radius: 5px;
+  background: #fff;
+  margin:10px;
+  overflow: hidden;
+}
+
+#project .item .pro-info{
+  padding: 10px 20px
+}
+
+#project .item .pro-info a{
+  display: inline-block;
+  padding:5px 0;
+  color: #4d90fe;
+  font-weight: bold;
+}
+
+#project .item .pro-info p{
+  color: #333;
+  font-size: .875rem;
+}
+
+#project .item .item-con:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 5px 30px 2px rgba(0,0,0,.2);
+  transition: .2s;
+}
+
+#exp ul li{
+  margin:12px 0;
+}
+
+#exp ul li p{
+  margin-top: 8px;
+  font-size: .875rem;
+  color: #333;
+}
+
+#self ol li{
+  margin: 12px 0;
+  color: #666;
+}
+
+#contact {
+  text-align: center;
+}
+
+#contact p,
+#contact span{
+  color: #fff;
+}
+
+#contact span{
+  margin-top: 20px;
+  font-size: 1.25rem;
+}
+
+#contact p{
+  font-size: 2rem;
+  padding: 80px 0 ;
+  font-weight: bold;
+}

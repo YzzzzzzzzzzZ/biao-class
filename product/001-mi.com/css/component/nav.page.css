@@ -1,0 +1,96 @@
+.the-logo {
+    /* background: black; */
+    width: 55px;
+    height: 55px;
+    background: #ff6700;
+    background-image:url(../../img/mi-logo.png);
+    background-size: cover;
+    /* background-position: center 0;
+    background-repeat: no-repeat; */ 
+    transition: background-image 3000ms;
+}
+.the-logo:hover {
+    background-image:url(../../img/mi-home.png);
+}
+.row.nav.page {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #ffffff;
+}
+.link-group {
+    position: relative;
+    top: 11px;
+   
+}
+.link-group a {
+    display: inline-block;
+    color: #333333;
+    margin: 10px;
+    font-size: 1.2rem;
+}
+.link-group a:hover {
+    color: #ff6700;
+}
+.search-bar [type="search"],
+.search-bar [type="submit"] {
+    display: inline-block;
+    padding: 12px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    font-size: 1.1rem;
+    background: #ffffff;
+    line-height: 1.1;
+}
+.search-bar [type="search"]:focus {
+    border-color: #ff6700;
+}
+
+/* .search-bar [type="search"] {
+    width: 80%;
+}
+.search-bar [type="submit"] {
+    width: 20%;
+} */
+.search-bar [type="search"] {
+    outline: 0;
+}
+
+.search-bar [type="submit"] {
+    border-left: none;
+    color: #ccc;
+}
+.search-bar [type="submit"]:hover {
+    background: #ff6700;
+    color: #fff;
+}
+.search-bar {
+    position: relative;
+    top: 6px;
+}
+/* .search-bar:focus {
+    border-color: #ff6700;
+} */
+.search-bar .rec-list {
+    /* position: relative;
+    bottom: 30px;
+    left: 60px; */
+    position: absolute;
+    right: 110px;
+    top: 10px;
+
+}
+.search-bar .rec {
+    display: inline-block;
+    font-size: .8rem;
+    background: #eeeeee;
+    color: #757575;
+    margin-left: 10px;
+    padding: 5px;
+}
+.search-bar .rec:hover {
+    color: #fff;
+    background: #ff6700;
+}
+
+
+
+
