@@ -90,32 +90,51 @@
   color: #eee;
 }
 
-.info {
+.info-area {
   overflow: auto;
+}
+
+.info-area .title {
+  margin-top: 80px;
+}
+.info-area .info{
   background: url(../img/info.png) no-repeat center center;
-  /* background-size: cover; */
+  background-size: 90%;
+  /* background: #fff; */
+  margin: 0px -180px;
+}
+.info-area .con{
+  margin-left: 180px;
 }
 
-.info .title {
-  margin-top: 111px;
-}
-
-.info .con h2 {
+.info-area .con h2 {
   font-size: 3rem;
   line-height: 1.5;
   margin: 100px 0 50px 0;
 }
 
-.info .con p {
-  width: 80%;
+.info-area .con p {
+  width: 60%;
   margin: 40px 0;
 }
 
-.info .con p.sub {
+.info-area .con p.sub {
   font-size: 1.75rem;
 }
 
-.info .skill{
-  margin: 100px 0 250px 0;
+.info-area .skill{
+  margin: 150px 0;
+}
+
+.info-area .skill span{
   height: 80px;
+  width: 80px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #000;
+  font-size: 1.5rem;
+  line-height: 76px;
+  text-align: center;
+  font-weight: bold;
 }
