@@ -1,0 +1,121 @@
+/*============title====================*/
+
+.title {
+  font-size: 2rem;
+  color: #000;
+  position: relative;
+  /* margin-top: -40px; */
+}
+
+.title span {
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  font-size: 3.5rem;
+  color: rgba(0, 0, 0, .2);
+  z-index: 1;
+}
+
+/*============title end====================*/
+
+.head {
+  background: url(../img/002.jpg) center bottom;
+  background-size: cover;
+  overflow: auto;
+}
+
+.nav-area {
+  margin-top: 20px;
+  height: 80px;
+  /* background: rgba(0,0,0,.8); */
+  border-radius: 10px;
+  /* display: none; */
+}
+
+.nav-area .logo {
+  padding-left: 20px;
+  font-size: 2rem;
+  line-height: 80px;
+  color: rgba(255, 255, 255, .8);
+  font-weight: bold;
+}
+
+.nav-area .nav {
+  margin-top: 30px;
+  padding-right: 20px;
+  text-align: right;
+}
+
+.nav-area .nav .menu {
+  display: inline-block;
+}
+
+.nav-area .nav .menu span {
+  height: 3px;
+  width: 30px;
+  margin-bottom: 5px;
+  background: #fff;
+  display: block;
+}
+
+.center-box {
+  text-align: center;
+}
+
+.main {
+  margin: 100px 0;
+}
+
+.main .photo {
+  width: 350px;
+  margin: 10px auto;
+  padding: 20px;
+  overflow: hidden;
+  border: 1px dashed #fff;
+  border-radius: 50%;
+}
+
+.main .photo img {
+  border-radius: 50%;
+}
+
+.main .content h1 {
+  font-size: 3rem;
+  font-weight: lighter;
+  color: #fff;
+  margin: 8px;
+}
+
+.main .content p {
+  color: #eee;
+}
+
+.info {
+  overflow: auto;
+  background: url(../img/info.png) no-repeat center center;
+  /* background-size: cover; */
+}
+
+.info .title {
+  margin-top: 111px;
+}
+
+.info .con h2 {
+  font-size: 3rem;
+  line-height: 1.5;
+  margin: 100px 0 50px 0;
+}
+
+.info .con p {
+  width: 80%;
+  margin: 40px 0;
+}
+
+.info .con p.sub {
+  font-size: 1.75rem;
+}
+
+.info .skill{
+  margin: 100px 0 250px 0;
+  height: 80px;
+}
