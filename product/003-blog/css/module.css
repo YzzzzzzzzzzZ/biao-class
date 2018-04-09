@@ -117,6 +117,61 @@
 
 /* ============head css end============= */
 
+
+/* =============porject css============= */
+
+.work-area .title {
+  margin: 40px 0;
+}
+
+.work-area {
+  margin-bottom: 80px;
+}
+
+.work-area .work-iteam {
+  position: relative;
+  transition: .3s;
+}
+
+.work-area .work-iteam .intro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
+  opacity: 0;
+  transition: .3s;
+}
+
+.work-area .work-iteam .intro a {
+  display: inline-block;
+  padding: 8px 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, .8);
+  margin-top: 70px;
+  color: #fff;
+}
+
+.work-area .work-iteam .cover {
+  font-size: 0;
+}
+
+.work-area .work-iteam:hover {
+  transform: scale(1.1);
+  transition: .3s;
+  z-index: 10;
+}
+
+.work-area .work-iteam:hover .intro {
+  opacity: 1;
+  transition: .3s;
+}
+
+/* =============porject css end============= */
+
+
 /* ============foot css========================= */
 
 .foot {
@@ -166,7 +221,7 @@
 }
 
 .foot .contact div.item>span {
-  width: 80px;
+  width: 100px;
   display: inline-block;
 }
 
