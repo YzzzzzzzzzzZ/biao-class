@@ -1,0 +1,66 @@
+.head{
+  background: #171717;
+}
+
+.art-area .title{
+  margin: 60px 0;
+}
+
+.art-list{
+  margin: 0 -10px;
+}
+
+.art-list .art{
+  padding: 10px;
+}
+
+.art-list .cover{
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.art-list .con{
+  background: #fff;
+  margin: 0 10px;
+  margin-top: -10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.art-list .con .art-title{
+  padding: 5px 0;
+}
+
+.art-list .con .art-title a{
+  display: inline-block;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.art-list .con .art-title span{
+  padding-right:10px;
+  font-size: .8rem;
+  color: #666;
+}
+
+.art-list .con .art-title span i{
+  margin-right:8px;
+}
+
+.art-list .con{
+  text-align: center;
+}
+
+.art-list .con p{
+  padding-bottom: 8px;
+  line-height: 1.5;
+}
+
+.art-list .con>a{
+  border-top: 1px solid #000;
+  color:#000;
+  border-bottom: 1px solid #000;
+  padding: 8px 12px;
+  display: inline-block;
+}

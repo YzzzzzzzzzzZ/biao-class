@@ -1,0 +1,180 @@
+/* ============head css============= */
+
+.head {
+  overflow: auto;
+}
+
+.nav-area {
+  margin-top: 20px;
+  height: 80px;
+  /* background: rgba(0,0,0,.8); */
+  border-radius: 10px;
+  /* display: none; */
+}
+
+.nav-area .logo {
+  font-size: 2rem;
+  line-height: 80px;
+  color: rgba(255, 255, 255, .8);
+  font-weight: bold;
+  text-align: center;
+}
+
+.nav-area .nav {
+  margin-top: 20px;
+  padding-left: 20px;
+  /* text-align: right; */
+}
+
+.nav-area .nav .nav-sub {
+  margin-top: 10px;
+}
+
+.nav-area .nav .nav-sub a {
+  padding: 10px 15px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #fff;
+  transition: .2s;
+}
+
+.nav-area .nav .nav-sub a:hover {
+  background: rgba(255, 255, 255, .8);
+  color: #000;
+  transition: .2s;
+}
+
+/* ===========汉堡菜单=========== */
+
+.nav-area .nav .menu {
+  transition: .2s;
+  display: none;
+  /** 隐藏 **/
+  padding: 8px;
+}
+
+.nav-area .nav .menu span {
+  height: 3px;
+  width: 30px;
+  margin-bottom: 5px;
+  background: #fff;
+  display: block;
+}
+
+.nav-area .nav .menu span:last-child {
+  margin-bottom: 0;
+}
+
+.nav-area .nav .menu:hover {
+  transition: .2s;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* ===========汉堡菜单 结束=========== */
+
+.search-area {
+  margin-top: 5px;
+  padding: 20px 10px;
+  text-align: right;
+}
+
+.search-area input {
+  height: 40px;
+  width: 240px;
+  background: rgba(0, 0, 0, .3);
+  border: 1px solid #000;
+  padding-left: 5px;
+  color: #fff;
+}
+
+.search-area button:focus,
+.search-area input:focus {
+  outline: none;
+  background: rgba(0, 0, 0, .8)
+}
+
+.search-area button {
+  height: 40px;
+  width: 40px;
+  background-color: rgba(0, 0, 0, .5);
+  color: #fff;
+  border: none;
+  transition: .2s;
+}
+
+.search-area button:hover {
+  transition: .2s;
+  background-color: #000;
+}
+
+.center-box {
+  text-align: center;
+}
+
+.main {
+  margin: 100px 0;
+}
+
+/* ============head css end============= */
+
+/* ============foot css========================= */
+
+.foot {
+  background: url(../img/foot-bg.jpg) no-repeat center;
+  overflow: auto;
+}
+
+.foot .title {
+  padding-top: 40px;
+}
+
+.foot .title p {
+  color: #fff;
+}
+
+.foot .title span {
+  color: rgba(255, 255, 255, .2);
+}
+
+.foot .contact-area {
+  margin: 40px 0;
+}
+
+.foot .contact-area div {
+  color: #eee;
+}
+
+.foot .contact {
+  padding-left: 20px;
+  color: #eee;
+}
+
+.foot .contact div {
+  margin: 10px 0
+}
+
+.foot .contact .foot-info {
+  width: 60%;
+  margin-bottom: 40px;
+}
+
+.foot .contact .foot-info span {
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: block;
+  margin: 10px 0;
+}
+
+.foot .contact div.item>span {
+  width: 80px;
+  display: inline-block;
+}
+
+.foot .contact div span i {
+  text-align: center;
+  display: inline-block;
+  width: 20px;
+  text-align: left;
+}
+
+/* ============foot css end========================= */
