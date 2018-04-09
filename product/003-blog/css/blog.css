@@ -1,25 +1,28 @@
-.head{
+.head {
   background: #171717;
 }
 
-.art-area .title{
+.art-area .title {
   margin: 60px 0;
 }
 
-.art-list{
+.art-list {
   margin: 0 -10px;
 }
 
-.art-list .art{
-  padding: 10px;
+.art-list .art {
+  padding: 0px 10px 20px;
 }
 
-.art-list .cover{
+.art-list .cover {
+  position: relative;
   border-radius: 10px;
   overflow: hidden;
+  z-index: 10;
+  font-size: 0;
 }
 
-.art-list .con{
+.art-list .con {
   background: #fff;
   margin: 0 10px;
   margin-top: -10px;
@@ -27,40 +30,100 @@
   border-radius: 10px;
 }
 
-.art-list .con .art-title{
+.art-list .con .art-title {
   padding: 5px 0;
 }
 
-.art-list .con .art-title a{
+.art-list .con .art-title a {
   display: inline-block;
   width: 100%;
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-.art-list .con .art-title span{
-  padding-right:10px;
+.art-list .con .art-title span {
+  padding-right: 10px;
   font-size: .8rem;
   color: #666;
 }
 
-.art-list .con .art-title span i{
-  margin-right:8px;
+.art-list .con .art-title span i {
+  margin-right: 8px;
 }
 
-.art-list .con{
+.art-list .con {
   text-align: center;
 }
 
-.art-list .con p{
+.art-list .con p {
   padding-bottom: 8px;
   line-height: 1.5;
 }
 
-.art-list .con>a{
+.art-list .con>a {
   border-top: 1px solid #000;
-  color:#000;
+  color: #000;
   border-bottom: 1px solid #000;
   padding: 8px 12px;
   display: inline-block;
+}
+
+.art-list .art:hover {
+  transition: .2s;
+  transform: translateY(-5px);
+}
+
+.art-list .art:hover>div {
+  transition: .2s;
+  -webkit-box-shadow: 0 5px 5px 0px rgba(0,0,0,.2);
+  box-shadow: 0 5px 5px 0px rgba(0,0,0,.2);
+}
+
+.work-area .title {
+  margin: 40px 0;
+}
+
+.work-area {
+  margin-bottom: 80px;
+}
+
+.work-area .work-iteam {
+  position: relative;
+  transition: .3s;
+}
+
+.work-area .work-iteam .intro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
+  opacity: 0;
+  transition: .3s;
+}
+
+.work-area .work-iteam .intro a {
+  display: inline-block;
+  padding: 8px 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, .8);
+  margin-top: 70px;
+  color: #fff;
+}
+
+.work-area .work-iteam .cover {
+  font-size: 0;
+}
+
+.work-area .work-iteam:hover {
+  transform: scale(1.1);
+  transition: .3s;
+  z-index: 10;
+}
+
+.work-area .work-iteam:hover .intro {
+  opacity: 1;
+  transition: .3s;
 }
