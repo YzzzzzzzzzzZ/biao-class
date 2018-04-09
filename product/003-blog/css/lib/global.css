@@ -21,13 +21,18 @@
 }
 
 .title .more a {
-  color: #666;
   font-size: 1.25rem;
   padding: 8px 20px;
+}
+
+.page a,
+.title .more a {
+  color: #666;
   border: 1px solid #000;
   transition: .2s;
 }
 
+.page a:hover,
 .title .more a:hover {
   background: #333;
   color: #fff;

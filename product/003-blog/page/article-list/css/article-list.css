@@ -1,0 +1,113 @@
+/* title */
+
+.art-area .title .more a{
+  font-size: 1rem;
+  margin-left: 20px;
+  border-color: #171717;
+}
+
+/* title end */
+
+/* page */
+
+.page{
+  margin: 12px;
+  text-align: center;
+}
+
+.page a{
+  display: inline-block;
+  font-size: .8rem;
+  padding: 8px 14px;
+  margin-right: 12px;
+}
+
+/* page end */
+.head{
+  background: #171717;
+}
+
+.main{
+  margin: 40px 0;
+}
+
+.art-area{
+  margin-bottom: 40px;
+}
+
+.art-area .title {
+  margin: 60px 0;
+}
+
+.art-list {
+  margin: 0 -10px;
+}
+
+.art-list .art {
+  padding: 0px 10px 20px;
+}
+
+.art-list .cover {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 10;
+  font-size: 0;
+}
+
+.art-list .con {
+  background: #fff;
+  margin: 0 10px;
+  margin-top: -10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.art-list .con .art-title {
+  padding: 5px 0;
+}
+
+.art-list .con .art-title a {
+  display: inline-block;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.art-list .con .art-title span {
+  padding-right: 10px;
+  font-size: .8rem;
+  color: #666;
+}
+
+.art-list .con .art-title span i {
+  margin-right: 8px;
+}
+
+.art-list .con {
+  text-align: center;
+}
+
+.art-list .con p {
+  padding-bottom: 8px;
+  line-height: 1.5;
+}
+
+.art-list .con>a {
+  border-top: 1px solid #000;
+  color: #000;
+  border-bottom: 1px solid #000;
+  padding: 8px 12px;
+  display: inline-block;
+}
+
+.art-list .art:hover {
+  transition: .2s;
+  transform: translateY(-5px);
+}
+
+.art-list .art:hover>div {
+  transition: .2s;
+  -webkit-box-shadow: 0 5px 5px 0px rgba(0,0,0,.2);
+  box-shadow: 0 5px 5px 0px rgba(0,0,0,.2);
+}
