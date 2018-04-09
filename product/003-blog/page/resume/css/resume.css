@@ -1,43 +1,5 @@
-/*============title====================*/
-
-.title p {
-  font-size: 2rem;
-  color: #000;
-  position: relative;
-  /* margin-top: -40px; */
-}
-
-.title span {
-  position: absolute;
-  left: 0;
-  bottom: -10px;
-  font-size: 3.5rem;
-  color: rgba(0, 0, 0, .2);
-  z-index: 1;
-}
-
-.title .more {
-  text-align: right;
-}
-
-.title .more a {
-  color: #666;
-  font-size: 1.25rem;
-  padding: 8px 20px;
-  border: 1px solid #000;
-  transition: .2s;
-}
-
-.title .more a:hover {
-  background: #333;
-  color: #fff;
-  transition: .2s;
-}
-
-/*============title end====================*/
-
 .head {
-  background: url(../img/head-bg.jpg) center bottom;
+  background: url(../../../img/head-bg.jpg) center bottom;
   background-size: cover;
   overflow: auto;
 }
@@ -117,7 +79,7 @@
 }
 
 .info-area .info {
-  background: url(../img/info.png) no-repeat center center;
+  background: url(../../../img/info.png) no-repeat center center;
   background-size: 95%;
   /* background: #fff; */
   margin: 0px -150px;
@@ -163,7 +125,7 @@
   margin: 40px 0;
 }
 
-.work-area{
+.work-area {
   margin-bottom: 80px;
 }
 
@@ -188,7 +150,7 @@
   padding: 8px 0;
   width: 100%;
   text-align: center;
-  background: rgba(0,0,0,.8);
+  background: rgba(0, 0, 0, .8);
   margin-top: 70px;
   color: #fff;
 }
@@ -206,4 +168,58 @@
 .work-area .work-iteam:hover .intro {
   opacity: 1;
   transition: .3s;
+}
+
+.foot {
+  background: url(../../../img/foot-bg.jpg) no-repeat center;
+  overflow: auto;
+}
+
+.foot .title {
+  padding-top: 40px;
+}
+
+.foot .title p {
+  color: #fff;
+}
+
+.foot .title span {
+  color: rgba(255, 255, 255, .2);
+}
+
+.foot .contact-area {
+  margin: 40px 0;
+}
+
+.foot .contact {
+  padding-left: 20px;
+  color: #eee;
+}
+
+.foot .contact div {
+  margin: 10px 0
+}
+
+.foot .contact .foot-info {
+  width: 60%;
+  margin-bottom: 40px;
+}
+
+.foot .contact .foot-info span {
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: block;
+  margin: 10px 0;
+}
+
+.foot .contact div.item>span {
+  width: 80px;
+  display: inline-block;
+}
+
+.foot .contact div span i {
+  text-align: center;
+  display: inline-block;
+  width: 20px;
+  text-align: left;
 }
