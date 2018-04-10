@@ -48,11 +48,11 @@ var e = {
     }]
   }, 9]
 }
-console.log(a.a1[2].v);
-console.log(b[3].b2.c[0].z);
-console.log(c.a.d.p.yo[2]);
-console.log(d[1][1].v[2].z);
-console.log(e.a[1].v[2].p);
+document.write('<p>' + a.a1[2].v + '</p>');
+document.write('<p>' + b[3].b2.c[0].z + '</p>');
+document.write('<p>' + c.a.d.p.yo[2] + '</p>');
+document.write('<p>' + d[1][1].v[2].z + '</p>');
+document.write('<p>' + e.a[1].v[2].p + '</p>');
 //============================
 
 /* 打印出“我叫王花花，我今年18岁了” */
@@ -63,7 +63,7 @@ var person = {
 }
 
 var a = '我叫' + person.name + '，我今年' + person.age + '岁了';
-console.log(a);
+document.write('<p>' + a + '</p>');
 
 /* 打印出“我叫李拴蛋，我老婆叫王花花，今年18岁了” */
 
@@ -76,7 +76,7 @@ console.log(a);
 }
 
 var b = '我叫' + person.name + '，我老婆叫' + person.wife.name + '，今年' + person.wife.age + '岁了。';
-console.log(b);
+document.write('<p>' + b + '</p>');
 
 /* 打印出“我叫李拴蛋，我老婆一共有200块” */
 
@@ -91,7 +91,7 @@ console.log(b);
 }
 
 var c = '我叫' + person.name + '，我老婆一共有' + (person.wife.balance - person.wife.huabei)  + '块';
-console.log(c);
+document.write('<p>' + c + '</p>');
 
 /* 打印出“我叫李拴蛋，我丈人有3个朋友” */
 
@@ -106,7 +106,7 @@ console.log(c);
 }
 
 var d = '我叫' + person.name + ',我丈人有' + person.wife.dad.friends.length + '个朋友';
-console.log(d);
+document.write('<p>' + d + '</p>');
 
 /* 打印出“我叫李拴蛋，我丈人的第一个朋友叫王一，第三个朋友叫李三” */
 
@@ -133,7 +133,7 @@ console.log(d);
 }
 
 var e = '我叫' + person.name + '，我丈人的第一个朋友叫' + person.wife.dad.friends[0].name + '，第三个朋友叫' + person.wife.dad.friends[2].name;
-console.log(e);
+document.write('<p>' + e + '</p>');
 
 /* 打印出“我叫李拴蛋，我丈人朋友们的孩子们的平均分是85.888888888” */
 
@@ -163,4 +163,4 @@ var f1 = person.wife.dad.friends[0];
 var f2 = person.wife.dad.friends[1];
 var f3 = person.wife.dad.friends[2];
 var f = '我叫' + person.name + '，我丈人朋友们的孩子平均分是' + (f1.averageScore + (f2.children * f2.averageScore) + (f3.children * f3.averageScore)) / (f1.children + f2.children + f3.children);
-console.log(f);
+document.write('<p>' + f + '</p>');
