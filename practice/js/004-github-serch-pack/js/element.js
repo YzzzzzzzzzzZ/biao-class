@@ -51,9 +51,10 @@ module.exports = {
   form : form,
   input : input,
   next : next,
-  showNext : showNext,
-  hideNext : hideNext,
   placeholer : placeholer,
   userList : userList,
+  top : top,
+  showNext : showNext,
+  hideNext : hideNext,
   renderUserList : renderUserList
 };

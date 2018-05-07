@@ -25,9 +25,16 @@ function detectNextPage() {
   });
 }
 
+function detectTop() {
+  el.top.addEventListener('click', function () {
+    window.scrollTo(0, 0);
+  });
+}
+
 function addEvents() {
   detectNextPage();
   detectSubmit();
+  detectTop();
 }
 
 //重置页码为1
@@ -40,10 +47,13 @@ function resetUserList() {
   el.userList.innerHTML = '';
 }
 
+
+
 module.exports = {
   addEvents: addEvents,
   detectNextPage: detectNextPage,
   detectSubmit: detectSubmit,
   resetUserList: resetUserList,
+  detectTop: detectTop,
   resetPage: resetPage
 };

@@ -3,7 +3,7 @@ var search = require('./search'),
 
 //获取关键词，定义config, url
 var page = 1,
-    limit = 5,
+    limit = 10,
     url = 'https://api.github.com/search/users?q=';
 
 function userSend() {
@@ -29,7 +29,7 @@ function userSend() {
 function nextPage() {
   var config = {
     keyword: keyword,
-    page: page++,
+    page: ++page,
     limit: limit,
     url: url
   };
