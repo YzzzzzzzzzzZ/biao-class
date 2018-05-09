@@ -1,8 +1,27 @@
+/*
+* config = {
+*   el: '#pagination-container', //根元素
+*   currentPage: page, //当前页
+*   totalCount: totalCount, //内容总个数
+*   limit: limit, //每页显示个数
+*   maxBtnLength: 5, //页面中存在的最大页码按钮数量
+*   start: true, // 是否需要 首页 按钮
+*   end: true, // 是否需要 尾页 按钮
+*   next: true, // 是否需要 下一页 按钮
+*   pre: true, // 是否需要 上一页 按钮
+*   pageOnclick: function pageOnclick(currentPage, e) {
+*     search(currentPage);
+*   } //当页面按钮点击时触发的函数
+* }
+* */
+
 var el,
   currentPage,
   pageOnclick,
-  tltalPage,
+  totalCount,
+  limit,
   maxBtnLength,
+  totalPage,
   start,
   end,
   next,
@@ -14,27 +33,18 @@ var output = {
 };
 
 function init(config) {
-  var def = {},
-    obj = config;
-
-  def = config;
-  // console.log(obj);
-  obj = Object.assign(def, config);
-  // console.log(obj);
-  go(obj);
-
-}
-
-function go(config) {
     el = document.querySelector(config.el);
     currentPage = config.currentPage || 1;
-    totalPage = config.totalPage;
+    totalCount = config.totalCount;
+    limit = config.limit;
     maxBtnLength = config.maxBtnLength;
     pageOnclick = config.pageOnclick;
     start = config.start;
     end = config.end;
     next = config.next;
     pre = config.pre;
+
+    totalPage = Math.ceil(totalCount / limit);
 
     render();
 
@@ -60,6 +70,10 @@ function appendPage() {
   }else {
     start = currentPage - (middle - 1);
     end = currentPage + (middle - 1);
+  }
+
+  if(totalPage < maxBtnLength) {
+    end = totalPage;
   }
 
   for(var i = start; i <= end; i++) {
@@ -114,7 +128,6 @@ function render() {
       rightArea.appendChild(nextBtn);
     }
     if(end){
-      console.log(totalPage);
       var endBtn = document.createElement('button');
       endBtn.innerText = '尾页';
       endBtn.dataset.page = totalPage;
@@ -123,8 +136,17 @@ function render() {
     }
     el.appendChild(rightArea);
   }
+
+  if(currentPage == 1){
+    leftArea.hidden = true;
+  }
+  if(currentPage == totalPage){
+    rightArea.hidden = true;
+  }
+
   onClick();
 }
+
 
 function onClick() {
   var pageList = document.querySelectorAll('.pager');
@@ -132,7 +154,6 @@ function onClick() {
     // console.log(item);
     item.addEventListener('click', function (e) {
       currentPage = parseInt(e.currentTarget.dataset.page);
-      // console.log(currentPage);
       //回调
       if(pageOnclick)
         pageOnclick(currentPage, e);

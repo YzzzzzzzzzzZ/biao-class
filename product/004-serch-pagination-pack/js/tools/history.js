@@ -60,6 +60,7 @@ function render() {
       //如果存在插件使用者的自定义函数，触发它
       if (onClick)
         onClick(keyword, e);
+      el.hidden = true;
     });
 
     //绑定删除事件
