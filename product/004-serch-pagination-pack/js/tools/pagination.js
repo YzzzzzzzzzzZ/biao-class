@@ -129,10 +129,10 @@ function render() {
 function onClick() {
   var pageList = document.querySelectorAll('.pager');
   pageList.forEach(function (item) {
-    console.log(item);
+    // console.log(item);
     item.addEventListener('click', function (e) {
       currentPage = parseInt(e.currentTarget.dataset.page);
-      console.log(currentPage);
+      // console.log(currentPage);
       //回调
       if(pageOnclick)
         pageOnclick(currentPage, e);
