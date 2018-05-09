@@ -5,8 +5,7 @@ var form = document.getElementById('search-form'),
   placeholer = document.getElementById('placeholer'),
   amount = document.getElementById('amount'),
   history = document.getElementById('history-list'),
-  pagination = document.getElementById('pagination-container'),
-  totalPage;
+  pagination = document.getElementById('pagination-container');
 
 
 /* 渲染用户列表

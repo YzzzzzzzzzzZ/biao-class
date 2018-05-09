@@ -5,9 +5,15 @@ var el = require('./element'),
   history = require('./tools/history'),
   pagination = require('./tools/pagination'),
   keyword,
-  limit = 5,
   page,
+  limit = 15,
   totalCount;
+
+  function addEvents() {
+    detectSubmit();
+    detectTop();
+    initHistory();
+  }
 
 function detectSubmit() {
   el.form.addEventListener('submit', function(e) {
@@ -21,12 +27,6 @@ function detectSubmit() {
   });
 }
 
-function detectTop() {
-  el.top.addEventListener('click', function() {
-    window.scrollTo(0, 0);
-  });
-}
-
 //重置页码为1
 function resetPage() {
   page = 1;
@@ -37,13 +37,21 @@ function resetUserList() {
   el.userList.innerHTML = '';
 }
 
+//返回顶部
+function detectTop() {
+  el.top.addEventListener('click', function() {
+    window.scrollTo(0, 0);
+  });
+}
+
 //搜索
 function initSearch() {
+  el.top.click();
   search.searchUser({
     keyword: el.input.value,
     page: page,
     limit: limit,
-    userList: el.userList
+    userList: el.userList // 如果传值就在每次搜索时重置userlist
   }, function(data) {
     var items = data.items;
     totalCount = data.total_count;
@@ -51,6 +59,7 @@ function initSearch() {
     if (totalCount > 1000) {
       totalCount = 1000;
     }
+
     el.renderUserList(items, totalCount);
     initPage();
   });
@@ -104,17 +113,9 @@ function initHistory() {
   });
 }
 
-
-function addEvents() {
-  detectSubmit();
-  detectTop();
-  initHistory();
-}
-
 module.exports = {
   addEvents: addEvents,
   detectSubmit: detectSubmit,
-  resetUserList: resetUserList,
   detectTop: detectTop,
   resetPage: resetPage
 };
