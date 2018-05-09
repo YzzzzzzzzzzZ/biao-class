@@ -1,13 +1,14 @@
 var search = require('./search'),
-  el = require('./element');
+  el = require('./element'),
+  history = require('./tools/history');
 
 //获取关键词，定义config, url
 var page = 1,
     limit = 10,
     url = 'https://api.github.com/search/users?q=';
 
-function userSend() {
-  keyword = el.input.value;
+function userSend(kwd) {
+  keyword = kwd || el.input.value;
   if (!keyword) {
     alert('请输入用户名');
     return;
@@ -27,6 +28,10 @@ function userSend() {
     }
     el.renderUserList(items, total);
   });
+
+  history.add(keyword);
+
+  el.input.blur();
 }
 
 function nextPage() {
