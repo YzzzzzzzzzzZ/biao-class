@@ -141,7 +141,9 @@
   }
 
   .pager {
-    padding: 5px 10px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
     border: 1px solid rgba(0, 0, 0, .1);
     border-left-width: 0;
   }
@@ -175,15 +177,25 @@
     cursor: default;
   }
 
+  .clear-history-list {
+    text-align: center;
+    width: 100%;
+    font-size: .7rem;
+    padding: 5px 10px;
+    color: #999;
+  }
+
   .history {
     padding: 5px 10px;
     font-size: 0;
   }
 
+  .clear-history-list:hover,
   .history:hover {
     background: rgba(0, 0, 200, .1);
   }
 
+  .clear-history-list,
   .history .text,
   .history .tool {
     vertical-align: middle;
@@ -227,17 +239,16 @@
   <div id="amount"></div>
   <div id="user-list"></div>
   <div class="tac" id="placeholer" hidden>谋了 - . -</div>
-  <div id="pagination-container" hidden>
-    <div>
-      <button id="pagination-start" class="pager">首页</button>
-    </div>
-    <div id="pagination"></div>
-    <div>
-      <button id="pagination-end" class="pager">末页</button>
-    </div>
-  </div>
+  <div id="pagination-container" hidden></div>
 </div>
 <div class="toolbar">
   <button id="top">Top</button>
 </div>
+<!-- <div>
+  <button id="pagination-start" class="pager">首页</button>
+</div>
+<div id="pagination"></div>
+<div>
+  <button id="pagination-end" class="pager">末页</button>
+</div> -->
 <script src="./dist/bundle.js"></script>

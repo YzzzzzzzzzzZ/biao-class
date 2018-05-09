@@ -73,6 +73,20 @@ function render() {
         remove(keyword);
       });
   });
+
+  //添加清除历史记录按钮
+  var clearBtn = document.createElement('div');
+  clearBtn.innerHTML = '清空历史记录';
+  clearBtn.classList.add('clear-history-list');
+  el.appendChild(clearBtn);
+
+  clearBtn.addEventListener('click', function (e) {
+    clear();
+  });
+
+  if(list.length == 0){
+    clearBtn.hidden = true;
+  }
 }
 
 //存储数据

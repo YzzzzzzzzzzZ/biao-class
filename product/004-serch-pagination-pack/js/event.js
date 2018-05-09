@@ -4,6 +4,7 @@ var el = require('./element'),
     search = require('./search'),
     send = require('./send'),
     history = require('./tools/history'),
+    pagination = require('./tools/pagination'),
     noMore;
 
 function detectSubmit() {
@@ -47,7 +48,8 @@ function addHistory() {
     el: '#history-list',
     onClick: function (keyword, e) {
       el.input.value = keyword;
-      detectSubmit();
+      resetPage();
+      resetUserList();
       send.userSend();
     }
   });
@@ -59,28 +61,44 @@ function addHistory() {
     //取到当前点击元素
     var target = e.target;
 
-    var in_search_input = target.closest('#search-input')
-      , in_history_list = target.closest('#history-list')
-    ;
+    var in_search_input = target.closest('#search-input'),
+     in_history_list = target.closest('#history-list');
 
     if (in_search_input || in_history_list)
       return;
 
     el.history.hidden = true;
   });
+}
 
+//翻页
+function page() {
+  // console.log(send.totalPage);
+  pagination.init({
+    el: '#pagination-container',
+    currentPage: send.page,
+    totalPage: send.totalPage,
+    maxBtnLength: 5,
+    start: true,
+    end: true,
+    next: true,
+    pre: true,
+    pageOnclick: function pageOnclick(currentPage, e) {
+      resetUserList();
+      send.userSend(currentPage);
+    }
+  });
 }
 
 function addEvents() {
-  // detectNextPage();
   detectSubmit();
   detectTop();
   addHistory();
+  page();
 }
 
 module.exports = {
   addEvents: addEvents,
-  // detectNextPage: detectNextPage,
   detectSubmit: detectSubmit,
   resetUserList: resetUserList,
   detectTop: detectTop,
