@@ -30,6 +30,7 @@ var el,
 
 var output = {
   init: init
+  // changePage: changePage
 };
 
 function init(config) {
