@@ -189,6 +189,8 @@ function changePage(changedPage, e) {
   if (pageOnclick)
     pageOnclick(currentPage, e);
   appendPage();
+  enable(elFieldset);
+
 }
 
 function disable(area) {
