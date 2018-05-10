@@ -102,7 +102,6 @@ function getData() {
 
 //添加一日奥历史记录
 function add(keyword) {
-  console.log(keyword);
   helper.findAndDelete(list, keyword);
   list.unshift(keyword);
   storingData();

@@ -146,9 +146,22 @@
       display: inline-block;
     }
 
-    #pagination-container div {
+    #pagination-container fieldset {
+      border: 0;
+      padding: 0;
       margin: 0 10px;
+      display: inline-block;
     }
+
+    #pagination-container > fieldset{
+      width: 100%;
+      margin: 0;
+    }
+
+    #pagination-container fieldset[disabled] button {
+      color: #fefefe;
+    }
+
 
     .pager {
       height: 36px;

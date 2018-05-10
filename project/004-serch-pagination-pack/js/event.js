@@ -74,11 +74,11 @@ function initPage() {
     currentPage: page, //当前页
     totalCount: totalCount, //内容总个数
     limit: limit, //每页显示个数
-    maxBtnLength: 5, //页面中存在的最大页码按钮数量
+    maxBtnLength: 7, //页面中存在的最大页码按钮数量(单数)
     start: true, // 是否需要 首页 按钮
     end: true, // 是否需要 尾页 按钮
     next: true, // 是否需要 下一页 按钮
-    pre: true, // 是否需要 上一页 按钮
+    prev: true, // 是否需要 上一页 按钮
     pageOnclick: function pageOnclick(currentPage, e) {
       page = currentPage;
       initSearch();
