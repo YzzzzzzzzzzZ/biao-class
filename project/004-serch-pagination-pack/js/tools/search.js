@@ -18,7 +18,6 @@ function searchUser(config, onSuccess, method) {
   config = Object.assign({}, def, config);
 
   var url = 'https://api.github.com/search/users?q=';
-  userList = config.userList || false;
   method = method || 'get';
 
   var http = new XMLHttpRequest();
@@ -27,8 +26,7 @@ function searchUser(config, onSuccess, method) {
   http.send();
 
   http.addEventListener('load', function () {
-    var judge = !userList;
-    if(!judge) {
+    if(config.resetUserList) {
       config.userList.innerHTML = '';
     }
     var data = JSON.parse(this.responseText);

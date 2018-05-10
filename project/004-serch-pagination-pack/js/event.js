@@ -4,7 +4,7 @@ var el = require('./element'),
   search = require('./tools/search'),
   history = require('./tools/history'),
   pagination = require('./tools/pagination'),
-  keyword,
+  keyword = el.input.value,
   page,
   limit = 15,
   totalCount;
@@ -51,17 +51,19 @@ function initSearch() {
     keyword: el.input.value,
     page: page,
     limit: limit,
-    userList: el.userList // 如果传值就在每次搜索时重置userlist
+    userList: el.userList,
+    resetUserList: true // 是否在每次搜索时重置userlist
   }, function(data) {
     var items = data.items;
     totalCount = data.total_count;
-
+    keyword = el.input.value;
     if (totalCount > 1000) {
       totalCount = 1000;
     }
 
     el.renderUserList(items, totalCount);
     initPage();
+    history.add(keyword);
   });
 }
 
