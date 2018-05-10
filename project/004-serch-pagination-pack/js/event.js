@@ -6,7 +6,7 @@ var el = require('./element'),
   pagination = require('./tools/pagination'),
   keyword = el.input.value,
   page,
-  limit = 5,
+  limit = 15,
   totalCount;
 
   function addEvents() {
