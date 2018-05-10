@@ -89,8 +89,12 @@ function appendPage() {
     btn.dataset.page = i;
     btn.classList.add('pager');
 
-    if (i == currentPage)
+    btn.disabled = false;
+
+    if (i == currentPage){
       btn.style.background = '#fefefe';
+      btn.disabled = true;
+    }
     pageArea.appendChild(btn);
   }
 }
@@ -171,15 +175,19 @@ function onClick() {
       if (currentPage == parseInt(e.currentTarget.dataset.page)) {
         return;
       }
-      currentPage = parseInt(e.currentTarget.dataset.page);
-      disable(elFieldset);
-      //回调
-      if (pageOnclick)
-        pageOnclick(currentPage, e);
-      appendPage();
-      setTimeOut(enable(elFieldset), 500);
+      var changedPage = parseInt(e.currentTarget.dataset.page);
+      changePage(changedPage, e);
     });
   });
+}
+
+function changePage(changedPage, e) {
+  currentPage = changedPage;
+  disable(elFieldset);
+  //回调
+  if (pageOnclick)
+    pageOnclick(currentPage, e);
+  appendPage();
 }
 
 function disable(area) {
