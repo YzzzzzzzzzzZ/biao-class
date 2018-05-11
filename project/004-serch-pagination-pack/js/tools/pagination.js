@@ -11,7 +11,8 @@
  *   prev: true, // 是否需要 上一页 按钮
  *   pageOnclick: function pageOnclick(currentPage, e) {
  *     search(currentPage);
- *   } //当页面按钮点击时触发的函数
+ *   } //当页面按钮点击时触发的用户自定义函数
+ *  onPageChange: function () {}//当页码改变时触发的用户自定义函数
  * }
  * */
 
@@ -26,11 +27,12 @@ var el,
   end,
   next,
   prev,
-  elFieldset;
+  elFieldset,
+  onPageChange;
 
 var output = {
-  init: init
-  // changePage: changePage
+  init: init,
+  changePage: changePage
 };
 
 function init(config) {
@@ -44,6 +46,7 @@ function init(config) {
   end = config.end;
   next = config.next;
   prev = config.prev;
+  onPageChange = config.onPageChange;
 
   totalPage = Math.ceil(totalCount / limit);
 
@@ -98,6 +101,20 @@ function appendPage() {
     }
     pageArea.appendChild(btn);
   }
+
+  enable(leftArea);
+  enable(rightArea);
+
+  if (currentPage == 1) {
+    disable(leftArea);
+  }
+  if (currentPage == totalPage) {
+    disable(rightArea);
+  }
+
+  console.log(currentPage);
+  onClick();
+
 }
 
 var leftArea,
@@ -132,7 +149,6 @@ function render() {
 
   pageArea = document.createElement('fieldset');
   elFieldset.appendChild(pageArea);
-  appendPage();
 
   //插入尾页和下一页
   if (end || next) {
@@ -154,30 +170,23 @@ function render() {
     elFieldset.appendChild(rightArea);
   }
 
-  enable(leftArea);
-  enable(rightArea);
+  appendPage();
 
-  if (currentPage == 1) {
-    disable(leftArea);
-  }
-  if (currentPage == totalPage) {
-    disable(rightArea);
-  }
-
-  onClick();
 }
 
 
 function onClick() {
   var pageList = document.querySelectorAll('.pager');
   pageList.forEach(function(item) {
-    // console.log(item);
     item.addEventListener('click', function(e) {
       if (currentPage == parseInt(e.currentTarget.dataset.page)) {
         return;
       }
       var changedPage = parseInt(e.currentTarget.dataset.page);
+      //页码点击回调事件
       changePage(changedPage, e);
+      if (pageOnclick)
+        pageOnclick(currentPage, e);
     });
   });
 }
@@ -185,10 +194,11 @@ function onClick() {
 function changePage(changedPage, e) {
   currentPage = changedPage;
   disable(elFieldset);
-  //回调
-  if (pageOnclick)
-    pageOnclick(currentPage, e);
-  appendPage();
+  //console.log(currentPage);
+  //页码改变回调事件
+  if(onPageChange)
+    onPageChange(currentPage);
+  render();
   enable(elFieldset);
 
 }

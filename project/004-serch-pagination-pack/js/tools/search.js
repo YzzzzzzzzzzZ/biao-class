@@ -3,38 +3,66 @@
 *   ketword = '', //搜索关键词
 *   page: page, //页码
 *   limit: limit, //每页数量
-*   userList: userList, //数据渲染的地方 （如果传值 在每次搜索时重置userlist）
+*   userList: userList, //数据渲染的地方
+*   renderUserList: true // 是否在每次搜索时重置userlist
 * }, onSuccess: fn(), //成功后执行的函数
 *   method: method //方法
 *
 * */
+var page, obj, sendMethod, url;
+
+var def = {
+  keyword: '',
+  page: 1,
+  limit: 5,
+};
 function searchUser(config, onSuccess, method) {
-  var def = {
-    keyword: '',
-    page: 1,
-    limit: 5,
-  };
 
-  config = Object.assign({}, def, config);
+  obj = Object.assign({}, def, config);
 
-  var url = 'https://api.github.com/search/users?q=';
-  method = method || 'get';
+  url = 'https://api.github.com/search/users?q=';
+  sendMethod = method || 'get';
 
+  send(obj, onSuccess, sendMethod);
+}
+
+function send(obj, onSuccess, method) {
   var http = new XMLHttpRequest();
-  http.open(method, url + config.keyword + '&page=' + config.page + '&per_page=' + config.limit);
+  http.open(method, url + obj.keyword + '&page=' + obj.page + '&per_page=' + obj.limit);
   http.setRequestHeader('Authorization', 'Basic ' + btoa('YzzzzzzzzzzZ:28236ab9a5313fddca330f3791b1d002bace04e5'));
   http.send();
 
   http.addEventListener('load', function () {
-    if(config.resetUserList) {
-      config.userList.innerHTML = '';
+    if(obj.resetUserList) {
+      obj.userList.innerHTML = '';
     }
     var data = JSON.parse(this.responseText);
     onSuccess(data);
   });
+}
 
+function OnPageChangeSend(obj, onPageChange, method) {
+  method = method || sendMethod;
+  var http = new XMLHttpRequest();
+  http.open(method, url + obj.keyword + '&page=' + obj.page + '&per_page=' + obj.limit);
+  http.setRequestHeader('Authorization', 'Basic ' + btoa('YzzzzzzzzzzZ:28236ab9a5313fddca330f3791b1d002bace04e5'));
+  http.send();
+
+  http.addEventListener('load', function () {
+    if(obj.resetUserList) {
+      obj.userList.innerHTML = '';
+    }
+    var data = JSON.parse(this.responseText);
+    onPageChange(data);
+  });
+}
+
+function pageChanged(page, onPageChange) {
+  obj.page = page;
+  OnPageChangeSend(obj, onPageChange);
 }
 
 module.exports = {
-  searchUser: searchUser
+  searchUser: searchUser,
+  pageChanged: pageChanged
 };

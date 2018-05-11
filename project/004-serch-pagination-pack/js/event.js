@@ -81,7 +81,11 @@ function initPage() {
     prev: true, // 是否需要 上一页 按钮
     pageOnclick: function pageOnclick(currentPage, e) {
       page = currentPage;
-      initSearch();
+      el.top.click();
+      search.pageChanged(page, function (data) {
+        var items = data.items;
+        el.renderUserList(items, totalCount);
+      });
     } //当页面按钮点击时触发的函数
   });
 }
