@@ -79,7 +79,7 @@ function initPage() {
     end: true, // 是否需要 尾页 按钮
     next: true, // 是否需要 下一页 按钮
     prev: true, // 是否需要 上一页 按钮
-    pageOnclick: function pageOnclick(currentPage, e) {
+    pageOnclick: function (currentPage, e) {
       page = currentPage;
       el.top.click();
       search.pageChanged(page, function (data) {

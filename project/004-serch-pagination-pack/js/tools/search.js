@@ -5,7 +5,8 @@
 *   limit: limit, //每页数量
 *   userList: userList, //数据渲染的地方
 *   renderUserList: true // 是否在每次搜索时重置userlist
-* }, onSuccess: fn(), //成功后执行的函数
+* }, onSuccess: fn(), //搜索成功后执行的函数
+*   OnPageChangeSend: fn(), //页码改变时搜索成功后执行的函数
 *   method: method //方法
 *
 * */

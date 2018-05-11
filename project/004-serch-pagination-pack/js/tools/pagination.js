@@ -9,10 +9,8 @@
  *   end: true, // 是否需要 尾页 按钮
  *   next: true, // 是否需要 下一页 按钮
  *   prev: true, // 是否需要 上一页 按钮
- *   pageOnclick: function pageOnclick(currentPage, e) {
- *     search(currentPage);
- *   } //当页面按钮点击时触发的用户自定义函数
- *  onPageChange: function () {}//当页码改变时触发的用户自定义函数
+ *   pageOnclick: function () {}, //当页面按钮点击时触发的用户自定义函数
+ *   pageOnChange: function () {}//当页码改变时触发的用户自定义函数
  * }
  * */
 
@@ -30,6 +28,7 @@ var el,
   elFieldset,
   onPageChange;
 
+
 var output = {
   init: init,
   changePage: changePage
@@ -46,16 +45,74 @@ function init(config) {
   end = config.end;
   next = config.next;
   prev = config.prev;
-  onPageChange = config.onPageChange;
+  pageOnChange = config.onPageChange;
 
   totalPage = Math.ceil(totalCount / limit);
 
-
-
   render();
+  onClick();
+}
+
+var leftArea,
+  pageArea,
+  rightArea,
+  prevBtn,
+  nextBtn;
+
+//渲染,初始化
+function render() {
+  //清空页码
+  el.innerHTML = '';
+  elFieldset = document.createElement('fieldset');
+  el.appendChild(elFieldset);
+  //插入首页和上一页
+  if (start || prev) {
+    leftArea = document.createElement('fieldset');
+    if (start) {
+      var startBtn = document.createElement('button');
+      startBtn.innerText = '首页';
+      startBtn.dataset.page = 1;
+      startBtn.classList.add('pager');
+      leftArea.appendChild(startBtn);
+    }
+    if (prev) {
+      prevBtn = document.createElement('button');
+      prevBtn.innerText = '上一页';
+      prevBtn.classList.add('pager');
+      leftArea.appendChild(prevBtn);
+    }
+    elFieldset.appendChild(leftArea);
+  }
+
+  //插入页码区域
+  pageArea = document.createElement('fieldset');
+  elFieldset.appendChild(pageArea);
+
+  //插入尾页和下一页
+  if (end || next) {
+    rightArea = document.createElement('fieldset');
+    if (next) {
+      nextBtn = document.createElement('button');
+      nextBtn.innerText = '下一页';
+      nextBtn.classList.add('pager');
+      rightArea.appendChild(nextBtn);
+    }
+    if (end) {
+      var endBtn = document.createElement('button');
+      endBtn.innerText = '尾页';
+      endBtn.dataset.page = totalPage;
+      endBtn.classList.add('pager');
+      rightArea.appendChild(endBtn);
+    }
+    elFieldset.appendChild(rightArea);
+  }
+
+  appendPage();
 
 }
 
+
+//插入页码，设置 data.page
 function appendPage() {
   if (currentPage < 1) {
     currentPage = 1;
@@ -112,69 +169,14 @@ function appendPage() {
     disable(rightArea);
   }
 
-  console.log(currentPage);
-  onClick();
+  prevBtn.dataset.page = currentPage - 1;
+  nextBtn.dataset.page = currentPage + 1;
+
+  console.log('当前页：' +  currentPage);
 
 }
 
-var leftArea,
-  pageArea,
-  rightArea;
-
-//渲染
-function render() {
-  //清空页码
-  el.innerHTML = '';
-  elFieldset = document.createElement('fieldset');
-  el.appendChild(elFieldset);
-  //插入首页和上一页
-  if (start || prev) {
-    leftArea = document.createElement('fieldset');
-    if (start) {
-      var startBtn = document.createElement('button');
-      startBtn.innerText = '首页';
-      startBtn.dataset.page = 1;
-      startBtn.classList.add('pager');
-      leftArea.appendChild(startBtn);
-    }
-    if (prev) {
-      var prevBtn = document.createElement('button');
-      prevBtn.innerText = '上一页';
-      prevBtn.dataset.page = currentPage - 1;
-      prevBtn.classList.add('pager');
-      leftArea.appendChild(prevBtn);
-    }
-    elFieldset.appendChild(leftArea);
-  }
-
-  pageArea = document.createElement('fieldset');
-  elFieldset.appendChild(pageArea);
-
-  //插入尾页和下一页
-  if (end || next) {
-    rightArea = document.createElement('fieldset');
-    if (next) {
-      var nextBtn = document.createElement('button');
-      nextBtn.innerText = '下一页';
-      nextBtn.dataset.page = currentPage + 1;
-      nextBtn.classList.add('pager');
-      rightArea.appendChild(nextBtn);
-    }
-    if (end) {
-      var endBtn = document.createElement('button');
-      endBtn.innerText = '尾页';
-      endBtn.dataset.page = totalPage;
-      endBtn.classList.add('pager');
-      rightArea.appendChild(endBtn);
-    }
-    elFieldset.appendChild(rightArea);
-  }
-
-  appendPage();
-
-}
-
-
+// 页码点击
 function onClick() {
   var pageList = document.querySelectorAll('.pager');
   pageList.forEach(function(item) {
@@ -191,14 +193,14 @@ function onClick() {
   });
 }
 
+// 页码改变
 function changePage(changedPage, e) {
   currentPage = changedPage;
   disable(elFieldset);
-  //console.log(currentPage);
   //页码改变回调事件
-  if(onPageChange)
-    onPageChange(currentPage);
-  render();
+  if(pageOnChange)
+    pageOnChange(currentPage);
+  appendPage();
   enable(elFieldset);
 
 }
