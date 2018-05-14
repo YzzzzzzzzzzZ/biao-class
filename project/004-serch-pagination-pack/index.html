@@ -153,7 +153,7 @@
       display: inline-block;
     }
 
-    #pagination-container > fieldset{
+    #pagination-container>fieldset {
       width: 100%;
       margin: 0;
     }
@@ -247,6 +247,81 @@
 
     .history .tool>* {
       cursor: pointer;
+    }
+
+    .loading {
+      top: 0;
+      left: 0;
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      background: rgba(20, 20, 20, .3);
+      z-index: 9999;
+    }
+
+    .loading div {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 30px 60px;
+      background: rgba(0, 0, 0, .8);
+      border-radius: 10px;
+    }
+
+    .load{
+      animation: myrotate 2s linear infinite;
+      -moz-animation: myrotate 2s linear infinite;
+      -webkit-animation: myrotate 2s linear infinite;
+      -o-animation: myrotate 2s linear infinite;
+    }
+
+    @keyframes myrotate {
+      %0 {
+        transform: rotateZ(0deg)
+      }
+      50% {
+        transform: rotate(180deg)
+      }
+      %100 {
+        transform: rotateZ(360deg)
+      }
+    }
+
+    @-webkit-keyframes myrotate {
+      0% {
+        -webkit-transform: rotate(0deg)
+      }
+      50% {
+        -webkit-transform: rotate(180deg)
+      }
+      100% {
+        -webkit-transform: rotate(360deg)
+      }
+    }
+
+    @keyframes myrotate {
+      0% {
+        transform: rotate(0deg)
+      }
+      50% {
+        transform: rotate(180deg)
+      }
+      100% {
+        transform: rotate(360deg)
+      }
+    }
+
+    @-moz-keyframes myrotate {
+      0% {
+        -moz-transform: rotate(0deg)
+      }
+      50% {
+        -moz-transform: rotate(180deg)
+      }
+      100% {
+        -moz-transform: rotate(360deg)
+      }
     }
   </style>
 </head>
