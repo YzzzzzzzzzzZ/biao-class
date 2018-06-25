@@ -50,7 +50,6 @@ function init(config) {
   totalPage = Math.ceil(totalCount / limit);
 
   render();
-  onClick();
 }
 
 var leftArea,
@@ -172,6 +171,7 @@ function appendPage() {
   prevBtn.dataset.page = currentPage - 1;
   nextBtn.dataset.page = currentPage + 1;
 
+  onClick();
   console.log('当前页：' +  currentPage);
 
 }
