@@ -1,16 +1,18 @@
 <template>
- <div class="main-nav">
+ <div class="main-nav" :style="{
+  marginBottom: this.pushDown ? '10px': 0,
+ }">
    <div class="row container">
      <div class="col left">
-       <a href="#" class="logo"></a>
+       <router-link to="/" href="#" class="logo"></router-link>
        <div class="nav-item">西安</div>
        <div class="nav-item">买车</div>
        <div class="nav-item">买车</div>
        <div class="nav-item">服务保障</div>
      </div>
      <div class="col right">
-       <div class="nav-item">登录</div>
-       <div class="nav-item">注册</div>
+       <router-link to="/Login" class="nav-item">登录</router-link>
+       <router-link to="/Signup" class="nav-item">注册</router-link>
        <div class="nav-item tel">400-678-6666</div>
      </div>
    </div>
@@ -18,7 +20,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props : {
+    pushDown : {
+      default : false,
+    }
+  }
+
+}
 </script>
 
 <style scoped>

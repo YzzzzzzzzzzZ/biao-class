@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <Nav></Nav>
     <div class="slider">
       <img src="../assets/home/slider1.webp">
@@ -121,7 +121,7 @@
                 <div class="others">
                   <span class="price">11.5万</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
+                  <router-link to="/detail" class="btn btn-primary buy">购买</router-link>
                 </div>
               </div>
             </div>
@@ -255,6 +255,9 @@
 </script>
 
 <style scoped>
+  .main {
+    background: #f0f0f0;
+  }
   .query-area {
     padding: 15px;
     background: #fff;
@@ -277,7 +280,6 @@
   .buy-huge {
     position: relative;
     top: 25px;
-    margin: 0px 60px;
   }
 
   .vehicle-list .row {
@@ -292,7 +294,7 @@
     padding: 20px;
   }
 
-  .guarantee .col-lg-3>div:hover {
+  .guarantee .col-lg-3:hover > div{
     -webkit-box-shadow: 0 15px 30px #ddd;
     box-shadow: 0 15px 30px #ddd;
     -webkit-transition: all .2s;
