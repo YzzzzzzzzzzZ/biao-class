@@ -10,7 +10,7 @@
       <form class="main-form">
         <div>
           <label for="username">用户名</label>
-          <input type="text" id="username">
+          <input v-validator="{required:true,min_length:2,max_length:4}" type="text" id="username">
         </div>
         <div>
           <label for="password">密码</label>
@@ -24,7 +24,10 @@
 <script>
 import Nav from '../components/Nav'
 
+import validator from '../directive/validator'
+
  export default {
+   directives : {validator},
    components : {
      Nav,
    }

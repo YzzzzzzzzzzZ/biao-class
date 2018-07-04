@@ -102,7 +102,7 @@ import Nav from '../components/Nav'
   }
 
   .main-form button {
-    width: 20%;
+    width: 25%;
     margin: 0 5%;
     display: inline-block;
     padding: 8px 20px;

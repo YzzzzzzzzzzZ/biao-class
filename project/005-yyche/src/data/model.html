@@ -3,12 +3,21 @@
 <script>
   let model = {
     name      : 'model',
+    with : [
+      { model: "brand", type: "has_one" },
+      { model: "design", type: "has_one" }
+    ],
     structure : {
       name     : { // 型号
         type     : 'string',
         nullable : false,
       },
       brand_id : { // 品牌id
+        type     : 'integer',
+        positive : true,
+        nullable : false,
+      },
+      design_id : { // 品牌id
         type     : 'integer',
         positive : true,
         nullable : false,
@@ -21,4 +30,15 @@
   // api('MODEL/READ', model);
 
   // api('MODEL/DELETE', { name : 'model' });
+
+  // api('MODEL/CREATE_PROPERTY', {
+  //   model     : 'model',
+  //   property  : 'design_id',
+  //   structure : {
+  //     type     : 'integer',
+  //     positive : true,
+  //   },
+  // });
+
+
 </script>

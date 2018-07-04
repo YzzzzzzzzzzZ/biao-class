@@ -12,6 +12,16 @@ h1 {
   font-size: 17px;
 }
 
+h2 {
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.tool-bar > *{
+  padding: 8px;
+}
+
 html {
   font-family: 'Microsoft YaHei', SimHei, sans-serif;
   color: #444;
