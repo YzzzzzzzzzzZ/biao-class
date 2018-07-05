@@ -4,13 +4,16 @@
     <img src="../assets/logo.png">
     <div class="login-area">
       <div class="user-login">用户登录</div>
-      <div class="error-box">
-        <div class="error">用户名或密码错误</div>
+      <div class="error-box" id="username-error">
       </div>
       <form class="main-form">
         <div>
           <label for="username">用户名</label>
-          <input v-validator="{required:true,min_length:2,max_length:4}" type="text" id="username">
+          <input
+            v-validator="{required:true,min_length:2,max_length:4,username:true}"
+            error-el="#username-error"
+            type="text"
+            id="username">
         </div>
         <div>
           <label for="password">密码</label>
@@ -21,6 +24,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Nav from '../components/Nav'
 
