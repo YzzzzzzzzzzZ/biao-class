@@ -1,9 +1,10 @@
 import 'normalize.css';
 import './main.css';
 import './css/admin.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
-import Vue  from 'vue'
-import VueRouter  from 'vue-router'
+import Vue  from 'vue';
+import VueRouter  from 'vue-router';
 
 import Root from './Root.vue';
 
@@ -11,11 +12,9 @@ import Home from './page/Home.vue';
 import Detail from './page/Detail';
 import Login from './page/Login';
 import Signup from './page/Signup';
-import SearchResult from './page/SearchResult';
-
+import Search from './page/Search';
 
 import Me from './page/settings/Me';
-
 
 import Base from './page/admin/Base';
 import User from './page/admin/User';
@@ -33,7 +32,7 @@ const routes = [
   {path: '/detail/:id', component : Detail},
   {path: '/login', component : Login},
   {path: '/signup', component : Signup},
-  {path: '/search/:keyword', component : SearchResult},
+  {path: '/search', component : Search},
   {path: '/settings/me', component : Me},
   {
     path: '/admin/',

@@ -15,7 +15,7 @@
     <form v-if="show_form" @submit="cou($event)">
       <div class="input-control">
         <label>用户名</label>
-        <input type="text" v-model="current.username">
+        <input  type="text" v-model="current.username">
       </div>
       <div class="input-control">
         <label>密码</label>

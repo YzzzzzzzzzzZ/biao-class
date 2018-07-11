@@ -23,8 +23,19 @@
           </div>
         </div>
         <div class="input-control">
+          <label>封面地址</label>
+          <div style="margin-bottom: 5px;">
+            <div v-for="(p, i) in current.preview" class="input-group-3">
+              <input type="text" placeholder="部位" v-model="p.name">
+              <input type="url" placeholder="图片地址" v-model="p.url">
+              <button @click="current.preview.splice(i, 1)" type="button">-</button>
+            </div>
+          </div>
+          <button @click="current.preview.push({})" type="button">+</button>
+        </div>
+        <div class="input-control">
           <label>价格</label>
-          <input v-validator="'positive'"
+          <input 
                   error-el="#price-error"
                   type="text" v-model="current.price">
           <div class="error-list">
@@ -59,11 +70,11 @@
         </div>
         <div class="input-control">
           <label>第一次上牌时间</label>
-          <input type="datetime-local" v-model="current.birthday">
+          <input type="date" v-model="current.birthday">
         </div>
         <div class="input-control">
           <label>预期出售时间</label>
-          <input type="datetime-local" v-model="current.deadline">
+          <input type="date" v-model="current.deadline">
         </div>
         <div class="input-control">
           <label>车况</label>
@@ -81,7 +92,9 @@
         </div>
         <div class="input-control">
           <label>发布人</label>
-          <Dropdown :list="user_list" displayKey="username"/>
+          <Dropdown :api="'user.username,real_name'"
+            displayKey="username"
+            />
         </div>
         <div class="input-control">
           <label>品牌</label>
@@ -120,7 +133,7 @@
           <th>操作</th>
         </thead>
         <tbody>
-          <tr v-for="(row, index) in list">
+          <tr v-for="(row, index) in list" :key="row.id">
             <td>{{row.title}}</td>
             <td>{{row.price}}</td>
             <td>{{row.consumed_distance || '-'}}</td>
@@ -170,10 +183,16 @@ export default {
   },
   data() {
     return {
+      current: {
+        preview: []
+      },
       searchable: ["title", "description"]
     };
   },
   methods: {
+    after_update () {      
+      this.current.preview = this.current.preview || [];
+    },
     list_user() {
       api("user/read").then(r => {
         this.user_list = r.data;

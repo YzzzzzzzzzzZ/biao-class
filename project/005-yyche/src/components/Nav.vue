@@ -11,6 +11,7 @@
        <div class="nav-item">服务保障</div>
      </div>
      <div class="col right">
+       <SearchBar/>
        <router-link to="/Login" class="nav-item">登录</router-link>
        <router-link to="/Signup" class="nav-item">注册</router-link>
        <div class="nav-item tel">400-678-6666</div>
@@ -20,22 +21,23 @@
 </template>
 
 <script>
+import SearchBar from "./SearchBar.vue";
 export default {
-  props : {
-    pushDown : {
-      default : false,
+  components: { SearchBar },
+  props: {
+    pushDown: {
+      default: false
     }
   }
-
-}
+};
 </script>
 
 <style scoped>
 .main-nav {
   background: #fff;
-  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
-  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .logo {

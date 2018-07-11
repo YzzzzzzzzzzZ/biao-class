@@ -81,6 +81,9 @@
       update(i) {
         this.show_form = true;
         this.current = this.list[i];
+        if(this.after_update){
+          this.after_update();
+        }
       },
       search(e) {
         e.preventDefault();
