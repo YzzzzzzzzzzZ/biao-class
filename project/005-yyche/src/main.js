@@ -23,9 +23,26 @@ import Location from './page/admin/Location';
 import Vehicle from './page/admin/Vehicle';
 import Brand from './page/admin/Brand';
 import Model from './page/admin/Model';
+import Report from './page/admin/Report';
+import Appo from './page/admin/Appo';
 
 Vue.use(VueRouter);
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+Vue.filter('only_day', function (value) {
+  if (!value)
+    return '-';
+
+  return value.split(' ')[ 0 ];
+});
+
+Vue.filter('percentage', function (value) {
+  if (!value)
+    return 0;
+  // return parseFloat(value).toFixed(2) * 100 + '%';
+  return Math.round(value*100) + '%';
+});
+
 
 const routes = [
   {path: '/', component : Home},
@@ -44,6 +61,8 @@ const routes = [
       {path: 'location', component: Location},
       {path: 'model', component: Model},
       {path: 'brand', component: Brand},
+      {path: 'report', component: Report},
+      {path: 'appo', component: Appo},
     ]
   },
 ]

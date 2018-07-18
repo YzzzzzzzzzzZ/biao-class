@@ -91,7 +91,7 @@
           <div @click="read_main('between_5_10')" class="item">5-10万</div>
           <div @click="read_main('suv')" class="item">超值SUV</div>
           <div @click="read_main('urgent')" class="item">急售降价车</div>
-          <router-link to="/search_result" class="item">更多</router-link>
+          <router-link to="/search" class="item">更多</router-link>
       </div>
     </div>
     <div class="vehicle-list">
@@ -108,7 +108,7 @@
                 <div class="others">
                   <span class="price">{{row.price}}</span>
                   <span>首付3.5万</span>
-                  <router-link to="/detail" class="btn btn-primary buy">购买</router-link>
+                  <router-link :to="'/detail/' + row.id" class="btn btn-primary buy">购买</router-link>
                 </div>
               </div>
             </div>
@@ -133,7 +133,8 @@ export default {
   mixins: [VehicleList, Reader],
   components: { Nav },
   mounted() {
-    this.read_main("on_sale");
+//    this.read_main("on_sale");
+    this.read_main("");
     this.find_design("suv");
     this.read("brand");
     this.read("design");

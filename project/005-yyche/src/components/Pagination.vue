@@ -44,6 +44,8 @@ export default {
   methods: {
     changePage(page) {
       this.onPageChange(page);
+      // console.log(this.onPageChange);
+      
     },
     showPage(page) {
       let show = false;

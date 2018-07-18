@@ -95,23 +95,16 @@
       set_design_id (row) {
         this.$set(this.current, 'design_id', row.id);
       },
-      // find_name_by_id(arr, id) {
-      //   console.log(arr);
-      //   console.log(id);
-      //   let i = arr.findIndex(function (arr, id) {
-      //     arr.id == id;
-      //   });
-      //
-      //   console.log(i);
-      //
-      //   return arr[i].name;
-      // },
     },
     data () {
       return {
         searchable: ['name'],
         brand_list: [],
         design_list: [],
+        with       : [
+          { model : 'brand', type : 'has_one' },
+          { model : 'design', type : 'has_one' },
+        ],
       };
     },
     mixins : [AdminPage],

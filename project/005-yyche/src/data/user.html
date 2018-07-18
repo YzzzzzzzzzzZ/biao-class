@@ -1,25 +1,45 @@
 <script src="../../node_modules/axios/dist/axios.js"></script>
-<script src="../lib/api.js"></script>
+<script src="api.js"></script>
 <script>
-  let model = {
-    name      : 'user',
-    structure : {
-      username  : { // 用户名
-        type     : 'string',
-        nullable : false,
-      },
-      password  : { // 密码
-        type     : 'string',
-        nullable : false,
-      },
-      real_name : { // 真实姓名
-        type     : 'string',
-        nullable : true,
-      },
-    },
-  };
+  // let model = {
+  //   name      : 'user',
+  //   structure : {
+  //     username  : { // 用户名
+  //       type     : 'string',
+  //       nullable : false,
+  //     },
+  //     password  : { // 密码
+  //       type     : 'string',
+  //       nullable : false,
+  //     },
+  //     real_name : { // 真实姓名
+  //       type     : 'string',
+  //       nullable : true,
+  //     },
+  //   },
+  // };
 
-  api('MODEL/CREATE', model);
+  // api('MODEL/CREATE', model);
+
+  // api('captcha/sms', { phone : 17621692442 });
+
+  //   api('MODEL/CREATE_PROPERTY', {
+  //   model     : 'user',
+  //   property  : 'phone',
+  //   structure : {
+  //     type     : 'string',
+  //     nullable : true,
+  //   },
+  // });
+  //   api('MODEL/CREATE_PROPERTY', {
+  //   model     : 'user',
+  //   property  : 'mail',
+  //   structure : {
+  //     type     : 'string',
+  //     nullable : true,
+  //   },
+  // });
+
 
   // api('MODEL/READ', model);
 

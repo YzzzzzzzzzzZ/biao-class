@@ -3,10 +3,12 @@
     <input @keyup="show_menu=true"
            v-model="keyword"
            @focus="show_menu=true"
-           placeholder="请选择"
+           :placeholder="placeholder"
            type="search">
     <div v-if="show_menu && result.length" class="menu">
-      <div @click="select(row)" class="menu-item" v-for="row in result">{{row[displayKey]}}</div>
+      <div @click="select(row)" class="menu-item" v-for="row in result">
+        {{row[displayKey]}}
+      </div>
     </div>
   </div>
 </template>
@@ -16,18 +18,21 @@
 
   export default {
     props   : {
-      api        : {}, // {string|object} 如果是异步搜索，就要传入接口配置，不然组件不知道怎么搜
-      list       : { // {Array} 如果不需要异步搜索，就需要传入静态数据，通常是数组：[{name: whh, id: 1}, ...]
+      placeholder : {
+        default : '请选择',
+      },
+      api         : {}, // {string|object} 如果是异步搜索，就要传入接口配置，不然组件不知道怎么搜
+      list        : { // {Array} 如果不需要异步搜索，就需要传入静态数据，通常是数组：[{name: whh, id: 1}, ...]
         default () {
           return [];
         },
       },
-      default    : {}, // {mixed} 默认选中项的主键（通常是id）
-      onSelect   : {}, // {Function} 当选中了某一项如何通知父级组件
-      primaryKey : {  // {string} 用于定位每一项的主键是什么
+      default     : {}, // {mixed} 默认选中项的主键（通常是id）
+      onSelect    : {}, // {Function} 当选中了某一项如何通知父级组件
+      primaryKey  : {  // {string} 用于定位每一项的主键是什么
         default : 'id',
       },
-      displayKey : { // {string} 每一项在菜单中显示哪个属性，默认为name
+      displayKey  : { // {string} 每一项在菜单中显示哪个属性，默认为name
         default : 'name',
       },
     },

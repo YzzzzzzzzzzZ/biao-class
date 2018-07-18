@@ -1,22 +1,22 @@
 import Vue from 'vue';
 import api from '../lib/api';
 
-function parse_string_rule(str) {
+function parse_string_rule (str) {
   let rule = {};
 
   str
     .split('|')
     .forEach(r => {
       let arr = r.split(':');
-      let key = arr[0]; // 例子：'min_length:4'，那么key就等于min_length
-      let val = arr[1]; // 例子：'min_length:4'，那么val就等于4
+      let key = arr[ 0 ]; // 例子：'min_length:4'，那么key就等于min_length
+      let val = arr[ 1 ]; // 例子：'min_length:4'，那么val就等于4
       if (val)
         val = val.split(',');
 
       // 如果只有键没有值，例子：'required'，那么val就等于true
       val = val === undefined ? true : val;
 
-      rule[key] = val;
+      rule[ key ] = val;
     });
 
   return rule;
@@ -29,14 +29,14 @@ const valid = {
    * @param val
    * @param lang
    */
-  max(val, lang, max) {
+  max (val, lang, max) {
     const lang_conf = {
-      zh: '最大值为：' + max,
-      en: 'Max value: ' + max,
+      zh : '最大值为：' + max,
+      en : 'Max value: ' + max,
     };
 
     if (this.numeric(val) && parseFloat(val) > max)
-      throw lang_conf[lang];
+      throw lang_conf[ lang ];
 
     return true;
   },
@@ -45,32 +45,80 @@ const valid = {
    * @param val
    * @param lang
    */
-  positive(val, lang) {
+  positive (val, lang) {
     const lang_conf = {
-      zh: '不合法的数字',
-      en: 'Invalid number',
+      zh : '不合法的数字',
+      en : 'Invalid number',
     };
 
     if (this.numeric(val) && parseFloat(val) < 0)
-      throw lang_conf[lang];
+      throw lang_conf[ lang ];
 
     return true;
   },
+
+  /**
+   * 是否为邮箱
+   * @param val
+   * @param lang
+   */
+  mail (val, lang) {
+    const lang_conf = {
+      zh : '不合法的邮箱',
+      en : 'Invalid email',
+    };
+
+    let re = /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/;
+
+    // console.log('re.test(val):', re.test(val));
+
+    if (!re.test(val))
+      throw lang_conf[ lang ];
+
+    return true;
+  },
+
+
   /**
    * 是否为数字
    * @param val
    * @param lang
    */
-  numeric(val, lang) {
+  numeric (val, lang) {
     const lang_conf = {
-      zh: '不合法的数字',
-      en: 'Invalid number',
+      zh : '不合法的数字',
+      en : 'Invalid number',
     };
 
     if (parseFloat(val) != val)
-      throw lang_conf[lang];
+      throw lang_conf[ lang ];
 
     return true;
+  },
+
+  cellphone (val, lang) {
+    const lang_conf = {
+      zh : '不合法的手机号',
+      en : 'Invalid phone number',
+    };
+
+    if (!this.numeric(val, lang) || !this.length(val, lang, 11))
+      throw lang_conf[ lang ];
+
+    return true;
+  },
+
+  length (val, lang, len) {
+    const lang_conf = {
+      zh : '不合法的长度，长度需等于' + len + '位',
+      en : 'Invalid field length, length should equals to ' + len,
+    };
+
+    val = val.toString();
+    if (val.length == len)
+      return true;
+
+    throw lang_conf[ lang ];
   },
 
   /**
@@ -78,33 +126,47 @@ const valid = {
    * @param val
    * @return {boolean}
    */
-  username(val, lang) {
+  username (val, lang) {
     const lang_conf = {
-      zh: '用户名不合法，只能包含字母和数字',
-      en: 'Invalid username',
+      zh : '用户名不合法，只能包含字母和数字',
+      en : 'Invalid username',
     };
 
     const re = /^[a-zA-Z0-9]*$/;
-    let r = re.test(val);
+    let r    = re.test(val);
 
     if (!r)
-      throw lang_conf[lang];
+      throw lang_conf[ lang ];
 
     return r;
   },
 
-  not_exist(val, lang, model, property) {
+  /**
+   * 是否与指定input一致
+   * @param val
+   * @return {boolean}
+   */
+  shadow (val, lang, selector) {
+    const lang_conf = {
+      zh : '两次输入不一致',
+      en : 'Inconsistent double inputs',
+    };
+
+    let reference = document.querySelector(selector);
+    let value     = reference.value;
+
+    if (value !== val)
+      throw lang_conf[ lang ];
+
+    return true;
+  },
+
+  not_exist (val, lang, model, property, except) {
     return new Promise((s, j) => {
-      if (!val)
+      if (!val || val == except)
         s();
 
-      return api(`${model}/first`, {
-          where: {
-            and: {
-              [property]: val
-            }
-          }
-        })
+      return api(`${model}/first`, { where : { and : { [ property ] : val } } })
         .then(r => {
           return r.data ? j('用户名已存在') : s(true);
         });
@@ -116,10 +178,10 @@ const valid = {
    * @param val
    * @return {boolean}
    */
-  required(val, lang) {
+  required (val, lang) {
     const lang_conf = {
-      zh: '此项为必填项',
-      en: 'This field is required',
+      zh : '此项为必填项',
+      en : 'This field is required',
     };
 
     if (typeof val === 'number')
@@ -128,7 +190,7 @@ const valid = {
     let r = !!val;
 
     if (!r)
-      throw lang_conf[lang];
+      throw lang_conf[ lang ];
 
     return r;
   },
@@ -139,16 +201,16 @@ const valid = {
    * @param min
    * @return {boolean}
    */
-  min_length(val, lang, min) {
+  min_length (val, lang, min) {
     const lang_conf = {
-      zh: '此项的最小长度为' + min,
-      en: 'Minimal length: ' + min,
+      zh : '此项的最小长度为' + min,
+      en : 'Minimal length: ' + min,
     };
 
     let r = val.length >= parseInt(min);
 
     if (!r)
-      throw lang_conf[lang];
+      throw lang_conf[ lang ];
 
     return r;
   },
@@ -159,16 +221,16 @@ const valid = {
    * @param max
    * @return {boolean}
    */
-  max_length(val, lang, max) {
+  max_length (val, lang, max) {
     const lang_conf = {
-      zh: '此项的最大长度为' + max,
-      en: 'Maximum length: ' + max,
+      zh : '此项的最大长度为' + max,
+      en : 'Maximum length: ' + max,
     };
 
     let r = val.length <= parseInt(max);
 
     if (!r)
-      throw lang_conf[lang];
+      throw lang_conf[ lang ];
 
     return r;
   },
@@ -187,7 +249,7 @@ const valid = {
  * @param input_list 当前表单所有已验证的input，通常在el_form.$state.input_list中
  * @param el_submit 提交按钮
  */
-function validate_form(input_list, el_submit) {
+function validate_form (input_list, el_submit) {
   let invalid = false;
 
   input_list.forEach(input => {
@@ -205,28 +267,28 @@ function validate_form(input_list, el_submit) {
 /**
  * 禁用提交按钮
  */
-function disable_submit(el_submit) {
+function disable_submit (el_submit) {
   el_submit.setAttribute('disabled', 'disabled');
 }
 
 /**
  * 启用提交按钮
  */
-function enable_submit(el_submit) {
+function enable_submit (el_submit) {
   el_submit.removeAttribute('disabled');
 }
 
-function init_form_state(form, lang) {
+function init_form_state (form, lang) {
   let el_submit = form.querySelector('[type=submit]');
-  form.$state = {
-    lang: lang,
-    el_submit: el_submit,
-    input_list: [],
+  form.$state   = {
+    lang       : lang,
+    el_submit  : el_submit,
+    input_list : [],
   };
   // form.$state.input_list = form.$state.input_list || [];
 }
 
-function track_input(form, input) {
+function track_input (form, input) {
   form.$state.input_list.push(input);
 }
 
@@ -237,9 +299,10 @@ function track_input(form, input) {
  * @param el_error 显示错误的元素
  * @param rule 规则 {required: true, min_length:4}
  */
-function go(el_form, el_input, el_error, rule) {
-  let val = el_input.value;
+function go (el_form, el_input, el_error, rule) {
+  let val     = el_input.value;
   let invalid = false;
+  let lang    = el_form.$state.lang;
 
   // 由于错误信息可能不止一条（不是用户名还没满足最小长度）
   // 所以每一条错误信息都要一个独立的元素包含：
@@ -249,13 +312,26 @@ function go(el_form, el_input, el_error, rule) {
 
   set_invalid(false);
 
+  if (!val && !rule.required)
+    return;
+
+  // 如果有非空验证就先执行非空验证
+  if (rule.required) {
+    try {valid.required(val, lang);}
+    catch (e) {
+      set_invalid(true, e);
+      return;
+    }
+  }
+
   // 循环并验证每一条规则
   for (let type in rule) {
     // type是每一类验证规则如'required'或'username'
-    let arg = rule[type]; // 获取传参，如'min_length:4'中的'4'
-    let validator = valid[type].bind(valid); // 获取验证函数
+    let arg       = rule[ type ]; // 获取传参，如'min_length:4'中的'4'
+    let validator = valid[ type ].bind(valid); // 获取验证函数
+
     try {
-      let args = [val, el_form.$state.lang].concat(arg);
+      let args = [ val, el_form.$state.lang ].concat(arg);
 
       if (!invalid) {
         // if (!val && type != 'required')
@@ -274,11 +350,12 @@ function go(el_form, el_input, el_error, rule) {
       }
     } catch (e) {
       set_invalid(true, e);
+      break;
     }
   }
 
-  function set_invalid(invalid, e) {
-    if (invalid && e) {
+  function set_invalid (invalid, e) {
+    if (invalid) {
       inner_msg += `<div class="error">${e}</div>`;
       el_input.setAttribute('invalid', 'true');
     } else
@@ -299,10 +376,11 @@ export default Vue.directive('validator', {
    * @param el
    * @param binding
    */
-  inserted: function (el, binding) {
+  inserted : function (el, binding) {
     let debounce_timer;
     // 先拿到字符串验证规则
     let rule = binding.value; // 'required|username|min_length:4'
+
     let selector = el.getAttribute('error-el'); // 用于显示错误信息的选择器
     let error_el = document.querySelector(selector); // 用于显示错误信息的元素
 
@@ -345,3 +423,4 @@ export default Vue.directive('validator', {
     });
   },
 });
+

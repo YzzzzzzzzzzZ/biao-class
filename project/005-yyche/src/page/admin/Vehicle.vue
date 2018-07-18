@@ -1,21 +1,21 @@
 <template>
-  <div class="content card">
-    <h2 class="col-lg-3">车辆列表</h2>
-    <div class="toor-bar col-lg-9">
-      <div class="col-lg-3">
-        <button @click="show_form=!show_form">创建二手车</button>
+  <div>
+    <div class="content card">
+      <h2>二手车列表</h2>
+      <div class="tool-bar">
+        <div>
+          <button @click="show_form=!show_form">创建二手车</button>
+        </div>
+
+        <form @submit="search($event)">
+          <input type="search" v-model="keyword" placeholder="搜标题/描述" autofocus>
+          <button type="submit" hidden>搜</button>
+        </form>
       </div>
-
-      <form @submit="search($event)" class="col-lg-9">
-        <input type="search" v-model="keyword" placeholder="输入关键词回车搜索">
-        <button type="submit" hidden></button>
-      </form>
-    </div>
-
-    <form v-if="show_form" @submit="cou($event)">
-      <div class="input-control">
+      <form v-if="show_form" @submit="cou($event)">
+        <div class="input-control">
           <label>标题</label>
-          <input v-validator="'required|max_length:40'"
+          <input v-validator="'required|max_length:40|min_length:3'"
                   error-el="#title-error"
                   type="text" v-model="current.title">
           <div class="error-list">
@@ -23,19 +23,8 @@
           </div>
         </div>
         <div class="input-control">
-          <label>封面地址</label>
-          <div style="margin-bottom: 5px;">
-            <div v-for="(p, i) in current.preview" class="input-group-3">
-              <input type="text" placeholder="部位" v-model="p.name">
-              <input type="url" placeholder="图片地址" v-model="p.url">
-              <button @click="current.preview.splice(i, 1)" type="button">-</button>
-            </div>
-          </div>
-          <button @click="current.preview.push({})" type="button">+</button>
-        </div>
-        <div class="input-control">
           <label>价格</label>
-          <input 
+          <input
                   error-el="#price-error"
                   type="text" v-model="current.price">
           <div class="error-list">
@@ -60,6 +49,17 @@
           </div>
         </div>
         <div class="input-control">
+          <label>封面地址</label>
+          <div style="margin-bottom: 5px;">
+            <div v-for="(p, i) in current.preview" class="input-group-3">
+              <input type="text" placeholder="部位" v-model="p.name">
+              <input type="url" placeholder="图片地址" v-model="p.url">
+              <button @click="current.preview.splice(i, 1)" type="button">-</button>
+            </div>
+          </div>
+          <button @click="current.preview.push({})" type="button">+</button>
+        </div>
+        <div class="input-control">
           <label>过户次数</label>
           <input v-validator="'positive'"
                   error-el="#exchange_times-error"
@@ -70,7 +70,7 @@
         </div>
         <div class="input-control">
           <label>第一次上牌时间</label>
-          <input type="date" v-model="current.birthday">
+          <input type="date" v-model="current.birth_day">
         </div>
         <div class="input-control">
           <label>预期出售时间</label>
@@ -78,7 +78,7 @@
         </div>
         <div class="input-control">
           <label>车况</label>
-          <input v-validator="'required|positive|max:9'"
+          <input v-validator="'positive|max:9'"
                   error-el="#condition-error"
                   type="number" v-model="current.condition">
           <div class="error-list">
@@ -92,21 +92,32 @@
         </div>
         <div class="input-control">
           <label>发布人</label>
-          <Dropdown :api="'user.username,real_name'"
-            displayKey="username"
-            />
+          <Dropdown :api="'user.username,realname'"
+                    displayKey="username"
+                    :onSelect="set_publisher_id"
+          />
         </div>
         <div class="input-control">
           <label>品牌</label>
-          <Dropdown :list="brand_list"/>
+          <Dropdown :list="brand_list"
+                    :onSelect="set_brand_id"
+          />
         </div>
         <div class="input-control">
           <label>型号</label>
-          <Dropdown :list="model_list"/>
+          <Dropdown :list="model_list"
+                    :onSelect="set_model_id"
+          />
         </div>
         <div class="input-control">
           <label>设计</label>
-          <Dropdown :list="design_list"/>
+          <Dropdown :list="design_list"
+                    :onSelect="set_design_id"
+          />
+        </div>
+        <div class="input-control">
+          <label>所属位置</label>
+          <Location :onSelect="set_location_id"/>
         </div>
         <div class="input-control">
           <label class="dib">促销
@@ -116,106 +127,131 @@
             <input type="checkbox" v-model="current.local">
           </label>
         </div>
-      <div class="input-control">
-        <button class="btn-primary" type="submit">提交</button>
-      </div>
-    </form>
-    <div class="table">
-      <table>
-        <thead>
+
+        <div class="input-control">
+          <div class="btn-group">
+            <button class="btn-primary" type="submit">提交</button>
+            <button @click="show_form=false" type="button">取消</button>
+          </div>
+        </div>
+      </form>
+      <div class="table">
+        <table>
+          <thead>
           <th>标题</th>
-          <th>价格(万)</th>
+          <th>价格</th>
           <th>里程</th>
           <th>预期出售时间</th>
           <th>车况</th>
           <th>过户次数</th>
           <th>特价</th>
           <th>操作</th>
-        </thead>
-        <tbody>
-          <tr v-for="(row, index) in list" :key="row.id">
+          </thead>
+          <tbody>
+          <tr v-for="row in list" :key="row.id">
             <td>{{row.title}}</td>
             <td>{{row.price}}</td>
             <td>{{row.consumed_distance || '-'}}</td>
-            <td>{{row.deadline || '-'}}</td>
-            <td>{{row.condition ? row.condition + '成新' : '-'}}</td>
+            <td>{{row.deadline | only_day}}</td>
+            <td>{{row.condition ? row.condition + '成心' : '-'}}</td>
             <td>{{row.exchange_times || '-'}}</td>
             <td>{{row.on_sale || '-'}}</td>
             <td>
-              <button @click="update(index)">编辑</button>
-              <button @click="remove(row.id)">删除</button>
+              <div class="btn-group">
+                <button class="btn-small" @click="set_current(row)">编辑</button>
+                <button class="btn-small" @click="remove(row.id)">删除</button>
+              </div>
             </td>
           </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="pagination">
-      <Pagination
-        :totalPage="total"
-        :currentPage="currentPage"
-        maxBtn="3"
-        :onPageChange="page"
-      />
+          </tbody>
+        </table>
+      </div>
+      <Pagination :currentPage="currentPage" :totalPage="last_page" :onPageChange="on_page_change"/>
     </div>
   </div>
 </template>
 
 <script>
-import "../../css/admin.css";
+  import '../../css/admin.css';
 
-import api from "../../lib/api";
+  import api from "../../lib/api";
 
-import AdminPage from "../../mixin/AdminPage";
-import Dropdown from "../../components/Dropdown";
-import validator from "../../directive/validator";
+  import AdminPage from '../../mixin/AdminPage.vue';
+  import Dropdown  from "../../components/Dropdown";
+  import Location  from "../../components/Location";
+  // import validator from '../../directive/validator';
 
-export default {
-  directives: { validator },
-  components: { Dropdown },
-  mounted() {
-    this.list_user();
-    this.list_brand();
-    this.list_model();
-    this.list_design();
-  },
-  created() {
-    this.model = "vehicle";
-  },
-  data() {
-    return {
-      current: {
-        preview: []
+  export default {
+    // directives : { validator },
+    components : { Location, Dropdown },
+    mounted () {
+      this.list_user();
+      this.list_brand();
+      this.list_model();
+      this.list_design();
+    },
+    data () {
+      return {
+        current     : {
+          preview : [],
+        },
+        user_list   : [],
+        model_list  : [],
+        design_list : [],
+        brand_list  : [],
+        model       : 'vehicle',
+        searchable  : [ 'title', 'description' ],
+        with: [
+          {model: 'report', type:'has_one'},
+        ]
+      };
+    },
+    methods    : {
+      after_set_current () {
+        this.current.preview = this.current.preview || [];
       },
-      searchable: ["title", "description"]
-    };
-  },
-  methods: {
-    after_update () {      
-      this.current.preview = this.current.preview || [];
+      list_user () {
+        api('user/read')
+          .then(r => {
+            this.user_list = r.data;
+          });
+      },
+      list_model () {
+        api('model/read')
+          .then(r => {
+            this.model_list = r.data;
+          });
+      },
+      list_brand () {
+        api('brand/read')
+          .then(r => {
+            this.brand_list = r.data;
+          });
+      },
+      list_design () {
+        api('design/read')
+          .then(r => {
+            this.design_list = r.data;
+          });
+      },
+      set_brand_id (row) {
+        this.$set(this.current, 'brand_id', row.id);
+      },
+      set_design_id (row) {
+        this.$set(this.current, 'design_id', row.id);
+      },
+      set_publisher_id (row) {
+        this.$set(this.current, 'publisher_id', row.id);
+      },
+      set_model_id (row) {
+        this.$set(this.current, 'model_id', row.id);
+      },
+      set_location_id (row) {
+        this.$set(this.current, 'location_id', row.id);
+      },
     },
-    list_user() {
-      api("user/read").then(r => {
-        this.user_list = r.data;
-      });
-    },
-    list_model() {
-      api("model/read").then(r => {
-        this.model_list = r.data;
-      });
-    },
-    list_brand() {
-      api("brand/read").then(r => {
-        this.brand_list = r.data;
-      });
-    },
-    list_design() {
-      api("design/read").then(r => {
-        this.design_list = r.data;
-      });
-    }
-  },
-  mixins: [AdminPage]
-};
+    mixins     : [ AdminPage ],
+  };
 </script>
 
 <style scoped>

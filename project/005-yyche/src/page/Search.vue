@@ -152,7 +152,7 @@ export default {
     this.search();
     this.read("brand");
     this.read("design");
-    this.act = this.search_param.sort_by[0];
+    this.act = this.search_param.sort_by[0] || 'id';
   },
   components: { Nav, SearchBar, Dropdown, Pagination },
   data() {
