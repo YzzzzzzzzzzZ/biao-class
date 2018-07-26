@@ -9,7 +9,7 @@
         </div>
         <a href="/search" class="btn btn-lg row">
           <span>购宠</span>
-          <img src="../assets/icons/right.png" alt="">
+          <img src="../assets/icons/right.png">
         </a>
       </div>
       <div class="info">
@@ -197,10 +197,10 @@
             </div>
             <div class="detail-item tac">
               <div class="detail-title">
-                金毛 3个月 3公1母 宠物级
+                金毛 3个月 宠物级
               </div>
               <div class="price">
-                2500 - 3500
+                2500
               </div>
               <div class="btn-box">
                 <a href="##" class="btn btn-md">
@@ -218,10 +218,10 @@
             </div>
             <div class="detail-item tac">
               <div class="detail-title">
-                金毛 3个月 3公1母 宠物级
+                金毛 3个月 宠物级
               </div>
               <div class="price">
-                2500 - 3500
+                2500
               </div>
               <div class="btn-box">
                 <a href="##" class="btn btn-md">
@@ -239,10 +239,10 @@
             </div>
             <div class="detail-item tac">
               <div class="detail-title">
-                金毛 3个月 3公1母 宠物级
+                金毛 3个月 宠物级
               </div>
               <div class="price">
-                2500 - 3500
+                2500
               </div>
               <div class="btn-box">
                 <a href="##" class="btn btn-md">
@@ -260,10 +260,10 @@
             </div>
             <div class="detail-item tac">
               <div class="detail-title">
-                金毛 3个月 3公1母 宠物级
+                金毛 3个月 宠物级
               </div>
               <div class="price">
-                2500 - 3500
+                2500
               </div>
               <div class="btn-box">
                 <a href="##" class="btn btn-md">
@@ -281,10 +281,10 @@
             </div>
             <div class="detail-item tac">
               <div class="detail-title">
-                金毛 3个月 3公1母 宠物级
+                金毛 3个月 宠物级
               </div>
               <div class="price">
-                2500 - 3500
+                2500
               </div>
               <div class="btn-box">
                 <a href="##" class="btn btn-md">
@@ -302,10 +302,10 @@
             </div>
             <div class="detail-item tac">
               <div class="detail-title">
-                金毛 3个月 3公1母 宠物级
+                金毛 3个月 宠物级
               </div>
               <div class="price">
-                2500 - 3500
+                2500
               </div>
               <div class="btn-box">
                 <a href="##" class="btn btn-md">
@@ -319,7 +319,9 @@
       </div>
     </div>
     <div class="footer">
-
+      <div class="container">
+        <p>CopyRight©2018 京-ICP备案号：8974-236514-54981-1125</p>
+      </div>
     </div>
   </div>
 </template>

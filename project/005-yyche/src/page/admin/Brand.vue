@@ -41,31 +41,31 @@
     </div>
     <div class="pagination">
       <Pagination
-      :totalPage="total"
+      :totalPage="last_page"
       :currentPage="currentPage"
       maxBtn="3"
-      :onPageChange="page"
+      :onPageChange="on_page_change"
       />
     </div>
   </div>
 </template>
 
 <script>
-  import '../../css/admin.css';
+import "../../css/admin.css";
 
-  import AdminPage      from '../../mixin/AdminPage';
+import AdminPage from "../../mixin/AdminPage";
 
-  export default {
-    created() {
-      this.model = 'brand';
-    },
-    data () {
-      return {
-        searchable: ['name'],
-      };
-    },
-    mixins : [AdminPage],
-  };
+export default {
+  created() {
+    this.model = "brand";
+  },
+  data() {
+    return {
+      searchable: ["name"]
+    };
+  },
+  mixins: [AdminPage]
+};
 </script>
 
 <style scoped>

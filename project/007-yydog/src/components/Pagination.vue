@@ -108,6 +108,9 @@ fieldset:disabled button {
 button {
   background: #f0f0f0;
   color: #333;
+  border: 0;
+  margin: 2px;
+  padding: 5px 10px; 
 }
 
 button.active {

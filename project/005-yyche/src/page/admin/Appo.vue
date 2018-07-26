@@ -52,7 +52,7 @@
           <tr v-for="row in list" :key="row.id">
             <td>{{row.$vehicle ? row.$vehicle.title : '-'}}</td>
             <td>{{row.$user ? row.$user.username : '-'}}</td>
-            <td>{{row.appointed_at}}</td>
+            <td>{{row.appointed_at | only_day}}</td>
             <td>{{row.remark}}</td>
           </tr>
           </tbody>
@@ -64,49 +64,49 @@
 </template>
 
 <script>
-  import '../../css/admin.css';
-  import AdminPage from '../../mixin/AdminPage';
-  import Dropdown from '../../components/Dropdown';
+import "../../css/admin.css";
+import AdminPage from "../../mixin/AdminPage";
+import Dropdown from "../../components/Dropdown";
 
-  export default {
-    data () {
-      return {
-        model      : 'appo',
-        searchable : [ 'remark' ],
-        with       : [
-          { type : 'has_one', model : 'user' },
-          { type : 'has_one', model : 'vehicle' },
-        ],
-      };
+export default {
+  data() {
+    return {
+      model: "appo",
+      searchable: ["remark"],
+      with: [
+        { type: "has_one", model: "user" },
+        { type: "has_one", model: "vehicle" }
+      ]
+    };
+  },
+
+  methods: {
+    set_user_id(row) {
+      this.$set(this.current, "user_id", row.id);
     },
+    set_vehicle_id(row) {
+      this.$set(this.current, "vehicle_id", row.id);
+    }
+  },
 
-    methods : {
-      set_user_id (row) {
-        this.$set(this.current, 'user_id', row.id);
-      },
-      set_vehicle_id (row) {
-        this.$set(this.current, 'vehicle_id', row.id);
-      },
-    },
-
-    mixins : [ AdminPage ],
-    components: {Dropdown},
-  };
+  mixins: [AdminPage],
+  components: { Dropdown }
+};
 </script>
 
 <style scoped>
-  h2 {
-    margin-top: 0;
-    font-size: 16px;
-  }
+h2 {
+  margin-top: 0;
+  font-size: 16px;
+}
 
-  .table {
-    overflow: auto;
-  }
+.table {
+  overflow: auto;
+}
 
-  th, td {
-    padding: 5px 10px;
-    text-align: left;
-  }
-
+th,
+td {
+  padding: 5px 10px;
+  text-align: left;
+}
 </style>

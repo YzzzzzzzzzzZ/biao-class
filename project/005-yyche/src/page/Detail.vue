@@ -1,4 +1,4 @@
- `<template>
+<template>
   <div>
     <Nav />
     <div class="container">
@@ -56,10 +56,32 @@
                 服务费3500元（最低服务费）
               </p>
             </div>
-            <div class="btnbox">
+            <div v-if="!appointed_appo || JSON.stringify(appointed_appo) == '{}'" class="action">
+              <div v-if="!show_appo">
+                <button @click="tip()" class="btn btn-primary">预约看车</button>
+                &nbsp;<span class="tel">400-080-5027</span>
+              </div>
+              <form v-if="show_appo" @submit="submit_appo">
+                <div class="input-control">
+                  <label for="appointed_at">预约时间</label>
+                  <input v-validator="'required'" id="appointed_at" type="date" v-model="appo.appointed_at">
+                </div>
+                <div class="input-control btn-group">
+                  <button type="submit" class="btn-primary">预约</button>
+                  <button type="button" @click="show_appo=false">取消</button>
+                </div>
+              </form>
+            </div>
+            <div v-else>
+              <button class="btn btn-primary" disabled>已预约</button>
+              <p>
+                预约时间：{{appointed_appo.appointed_at | only_day}}
+              </p>
+            </div>
+            <!-- <div class="btnbox">
               <button class="btn btn-primary">预约看车</button>
               <button class="btn btn-primary">免费咨询</button>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -193,13 +215,13 @@
                         cat="high_tech"
                         :reportStructure="report_structure"
                         :report="report"/>
-              </div>
+            </div>
             <div class="col-lg-2">
               <ReportPanel title="随车工具检测"
                         cat="tool"
                         :reportStructure="report_structure"
                         :report="report"/>
-            </div>
+            </div>  
           </div>
         </div>
       </div>
@@ -212,6 +234,7 @@ import Nav from "../components/Nav";
 import SearchBar from "../components/SearchBar";
 import ReportPanel from "../components/ReportPanel";
 import api from "../lib/api";
+import session from "../lib/session";
 
 export default {
   mounted() {
@@ -220,9 +243,16 @@ export default {
     this.find(id);
     this.find_report_by_vehicle(id);
     this.get_report_structure();
+
+    this.prepare_appo_row();
+    this.has_appointed();
   },
   data() {
     return {
+      show_appo: false,
+      is_login: session.uinfo(),
+      appo: {},
+      appointed_appo: {},
       selected_preview: 0,
       detail: {},
       report: {},
@@ -230,6 +260,18 @@ export default {
     };
   },
   methods: {
+    tip() {
+      this.is_login ? (this.show_appo = true) : alert("请登录后再试！");
+    },
+    submit_appo(e) {
+      e.preventDefault();
+
+      let row = this.appo;
+
+      api("appo/create", row).then(r => {
+        this.has_appointed();
+      });
+    },
     find(id) {
       api("vehicle/find", { id }).then(r => (this.detail = r.data));
     },
@@ -246,6 +288,25 @@ export default {
       api("MODEL/FIND", { name: "report" }).then(r => {
         this.report_structure = r.data.structure;
       });
+    },
+
+    prepare_appo_row() {
+      this.appo.vehicle_id = this.get_id();
+      if (this.is_login) this.appo.user_id = session.uinfo().id;
+      else this.appo.user_id = null;
+    },
+
+    has_appointed() {
+      let row = this.appo;
+      let query = `where("vehicle_id" = ${row.vehicle_id} and "user_id" = ${
+        row.user_id
+      })`;
+
+      if (this.appo.user_id) {
+        api("appo/read", { query }).then(r => {
+          this.appointed_appo = r.data[0];
+        });
+      }
     },
 
     get_id() {

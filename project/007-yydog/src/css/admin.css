@@ -1,0 +1,29 @@
+.content {
+  background: #fff;
+  padding: 15px;
+}
+
+table {
+  width: 100%;
+}
+
+h2 {
+  font-size: 20px !important;
+}
+
+.table {
+  overflow: auto;
+}
+
+th, td {
+  padding: 5px 10px;
+  text-align: left;
+}
+
+.pagination {
+  text-align: center;
+}
+
+tr:hover{
+  background: rgba(0,0,255,.1);
+}

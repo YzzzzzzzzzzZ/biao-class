@@ -4,7 +4,7 @@
            type="search"
            @keyup="change()"
            v-model="kwd"
-           autofocus>
+           >
     <button type="submit">搜</button>
   </form>
 </template>
