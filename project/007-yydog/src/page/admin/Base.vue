@@ -37,4 +37,7 @@
   margin-top: 90px;
   padding: 20px;
 }
+.row > div {
+  padding: 10px;
+}
 </style>

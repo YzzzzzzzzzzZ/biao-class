@@ -1,4 +1,24 @@
+import api from './api';
 export default {
+  exist (unique, password) {
+    return api('user/read', {
+      where : {
+        or : [
+          [ 'username', '=', unique ],
+          [ 'phone', '=', unique ],
+          [ 'email', '=', unique ],
+        ],
+      },
+    }).then(r => {
+      let row;
+
+      if ((row = r.data[ 0 ]) && row.password === password)
+        return row;
+
+      return false;
+    });
+  },
+
   uinfo() {
     let u = localStorage.getItem('uinfo');
     if (u)
@@ -6,6 +26,7 @@ export default {
   },
 
   login(row) {
+    delete row.password;
     localStorage.setItem('uinfo', JSON.stringify(row));
   },
 

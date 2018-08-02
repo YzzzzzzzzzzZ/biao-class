@@ -1,6 +1,6 @@
 module.exports = {
   // options...
-  css : {
-    sourceMap : true,
+  css: {
+    sourceMap: true,
   },
 };

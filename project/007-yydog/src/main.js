@@ -5,9 +5,19 @@ import VueRouter from 'vue-router'
 
 import Home from './page/Home.vue'
 import Detail from './page/Detail.vue'
+import Search from './page/Search.vue'
+import NewOrder from './page/NewOrder.vue'
+import PayForSuccess from './page/PayForSuccess.vue'
 
 import Base from './page/admin/Base.vue'
 import Pet from './page/admin/Pet'
+import User from './page/admin/User'
+import Breed from './page/admin/Breed'
+import Order from './page/admin/Order'
+
+import Me from './page/me/Me.vue'
+
+
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -87,20 +97,48 @@ const routes = [{
     component: Home
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
     component: Detail
   },
-  // {
-  //   path: '/search',
-  //   component: Search
-  // },
+  {
+    path: '/search',
+    component: Search
+  },
+  {
+    path: '/new_order/:oid',
+    component: NewOrder
+  },
+  {
+    path: '/pay_for_success',
+    component: PayForSuccess
+  },
+  {
+    path: '/me/',
+    component: Me,
+    children:[
+      // {path: 'order', component: MeOrder},
+    ]
+  },
   {
     path: '/admin/',
     component: Base,
     children: [{
-      path: 'pet',
-      component: Pet
-    }]
+        path: 'pet',
+        component: Pet
+      },
+      {
+        path: 'user',
+        component: User
+      },
+      {
+        path: 'breed',
+        component: Breed
+      },
+      {
+        path: 'order',
+        component: Order
+      }
+    ]
   }
 ];
 

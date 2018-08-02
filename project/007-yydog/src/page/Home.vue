@@ -7,10 +7,10 @@
           <p>购宠无忧，上漾宠！</p>
           <span>坚持繁殖段直售 坚持实地拍摄 坚持全程防疫监控</span>
         </div>
-        <a href="/search" class="btn btn-lg row">
+        <router-link to="/search" class="btn btn-lg row">
           <span>购宠</span>
           <img src="../assets/icons/right.png">
-        </a>
+        </router-link>
       </div>
       <div class="info">
         <div class="container row">
@@ -328,6 +328,7 @@
 
 <script>
 import "../main.css";
+import "../css/pet-list.css";
 
 import Nav from "../components/Nav";
 export default {
@@ -521,70 +522,6 @@ export default {
   margin-top: 8px;
 }
 
-/* 列表 */
-
-.star {
-  border-radius: 30px;
-  overflow: hidden;
-  border-bottom-left-radius: 0;
-  border: #00c77200 2px solid;
-  transition: all .2s ease;
-
-}
-
-.star:hover {
-  border: #00c772 2px solid;
-  transition: all .5s ease;
-}
-
-.star .detail-item {
-  background: #fff;
-  padding: 15px 30px;
-  position: relative;
-  overflow: hidden;
-}
-
-.star .detail-item::before,
-.star .detail-item::after{
-  content: ' ';
-  background: url(../assets/icons/foot.png) top right no-repeat /150px 150px;
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  opacity: .05;
-}
-
-.star .detail-item::after{
-  bottom: -40px;
-  left: -30px;
-  transform: rotate(30deg);
-  transform: rotateY(180deg);
-}
-
-.star .detail-item::before{
-  bottom: 30px;
-  right: -50px;
-  transform: rotate(60deg);
-}
-
-.star .detail-title {
-  font-size: 1.1rem;
-  color: #333;
-}
-
-.star .price {
-  padding: 10px 0;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #fd521d;
-}
-
-.star .price::after {
-  content: '元/只';
-  font-size: .8rem;
-  font-weight: normal;
-  color: #666;
-}
 
 </style>
 

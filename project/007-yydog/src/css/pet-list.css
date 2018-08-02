@@ -1,0 +1,64 @@
+/* 列表 */
+
+.star {
+  border-radius: 30px;
+  overflow: hidden;
+  border-bottom-left-radius: 0;
+  border: #00c77200 2px solid;
+  transition: all .2s ease;
+
+}
+
+.star:hover {
+  border: #00c772 2px solid;
+  transition: all .5s ease;
+}
+
+.star .detail-item {
+  background: #fff;
+  padding: 15px 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.star .detail-item::before,
+.star .detail-item::after{
+  content: ' ';
+  background: url(../assets/icons/foot.png) top right no-repeat /150px 150px;
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  opacity: .05;
+}
+
+.star .detail-item::after{
+  bottom: -40px;
+  left: -30px;
+  transform: rotate(30deg);
+  transform: rotateY(180deg);
+}
+
+.star .detail-item::before{
+  bottom: 30px;
+  right: -50px;
+  transform: rotate(60deg);
+}
+
+.star .detail-title {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.star .price {
+  padding: 10px 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #fd521d;
+}
+
+.star .price::after {
+  content: '元/只';
+  font-size: .8rem;
+  font-weight: normal;
+  color: #666;
+}

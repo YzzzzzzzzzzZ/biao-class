@@ -143,6 +143,8 @@ a {
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   font-size: 0;
+  border: 0;
+  cursor: pointer;
 }
 
 .btn span {
@@ -169,7 +171,7 @@ a {
 }
 
 .btn-lg img {
-  height: 30px;
+  height: 28px;
   margin-left: 1rem;
 }
 
@@ -206,4 +208,8 @@ a {
   -moz-transform: translateX(5px);
   -ms-transform: translateX(5px);
   -o-transform: translateX(5px);
+}
+
+.btn:focus{
+  outline: 0;
 }
