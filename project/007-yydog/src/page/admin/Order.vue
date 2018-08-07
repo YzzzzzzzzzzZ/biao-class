@@ -18,18 +18,25 @@
           <th>操作</th>
         </thead>
         <tbody>
-          <tr :key="row.id" v-for="(row, index) in list">
+          <tr :key="row.id" v-for="row in list">
             <td>{{row.$user && row.$user.username || '-'}}</td>
             <td>{{row.oid}}</td>
             <td>{{row.sum}}</td>
-            <td>{{row.product || '-'}}</td>
+            <td>{{row.product_info|| '-'}}</td>
             <td>{{row.memo}}</td>
             <td v-if="row._paid">
+              <span>实付：{{row._fee}}</span><br>
               <span>已付款</span>
             </td>
             <td v-else>
-              <button @click="update(index)">付款</button>
-              <button @click="remove(row.id)">取消订单</button>
+              <div class="btn-box">
+                <router-link class="btn btn-sm" :to="`/new_order/${row.oid}`">
+                  <span>付款</span>
+                </router-link>
+                <button class="btn btn-sm" @click="remove(row.id)">
+                  <span>取消订单</span>
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -63,14 +70,14 @@ export default {
     };
   },
   methods: {
-    update(i) {
-      this.current = this.list[i];
-      this.show_form = true;
-    }
   },
   mixins: [AdminPage]
 };
 </script>
 
 <style scoped>
+.btn-box .btn {
+  vertical-align: top;
+  margin-left: 4px;
+}
 </style>

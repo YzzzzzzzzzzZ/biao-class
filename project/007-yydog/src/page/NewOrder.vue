@@ -2,8 +2,23 @@
   <div>
     <h2>您的订单</h2>
     <div>订单号：{{current.oid}}</div>
-    <div>总价：{{current.sum}}</div>
-    <div>订单详情：{{current.product_info}}</div>
+    <div>总价：{{current.sum}}元</div>
+    <div>
+      <p>订单详情：</p>
+      <table class="col-lg-8">
+        <tr v-for="it in current.product_info" :key="it.id">
+          <td>
+            <img :src="it.cover_url">
+          </td>
+          <td>
+            <router-link :to="`/detail/${it.id}`">{{it.title}}</router-link>
+          </td>
+          <td>
+            {{it.price}}元
+          </td>
+        </tr>
+      </table>
+    </div>
     <div>
       {{current.pay_by}}
       <label for="wechat">微信支付</label>
@@ -16,10 +31,10 @@
       <label for="discount">老板吐血大酬宾！每单仅需1分钱！</label>
       <input type="checkbox" name="discount" v-model="discount">
     </div>
-    <div>需支付：{{total}}</div>
+    <div>需支付：{{total}}元</div>
     <span @click="pay">前往支付</span>
     <transition name="wechat">
-      <div v-if="wechat" class="mask">
+      <div v-if="wechat" class="mask" @click="wechat=false">
         <div>
           <img :src="qrcode">
           <div class="btn btn-md">

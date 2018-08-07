@@ -57,9 +57,7 @@
        *
        * 具体常见还是更新取决于是否有id
        */
-      cou (e) {
-        e.preventDefault();
-
+      cou () {
         let action = this.current.id ? 'update' : 'create';
 
         api(`${this.model}/${action}`, this.current)
@@ -77,10 +75,10 @@
         if (page == this.current_page && page != 1)
           return;
 
-        api(`${this.model}/read`, { limit : this.limit, page : page, with : this.with })
+        api(`${this.model}/read`, { limit : this.limit, page : page, with : this.with, key_by: this.key_by })
           .then(r => {
             this.total        = r.total;
-            this.list         = r.data;
+            this.list         = r.data || [];
             this.last_page    = r.last_page;
             this.currentPage  = r.current_page;
           });

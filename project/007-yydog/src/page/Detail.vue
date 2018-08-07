@@ -2,8 +2,9 @@
   <div class="main">
     <Nav />
     <div class="container">
-      <Detail petId="1" />
+      <Detail :petId="pid" />
     </div>
+    {{pid}}
   </div>
 </template>
 
@@ -12,7 +13,18 @@ import Nav from "../components/Nav";
 import Detail from "../components/Detail";
 
 export default {
-  components: { Nav, Detail }
+  components: { Nav, Detail },
+  data() {
+    return {
+      pid: this.$route.params.id,
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.pid = to.params.id;      
+    }
+  }
+
 };
 </script>
 

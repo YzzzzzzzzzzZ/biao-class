@@ -16,13 +16,13 @@
         </div>
         <div class="col-lg-6 text-area">
           <div class="title">
-            2个月的博美 母 宠物级
+            {{current.title}}
           </div>
           <div class="info">
-            <div>品种：<span>博美</span></div>
-            <div>品级：<span>宠物级</span></div>
-            <div>生日：<span>2018-05-01</span></div>
-            <div>年龄：<span>2个月</span></div>
+            <div>品种：<span>{{(current.$breed && current.$breed.name) || '-'}}</span></div>
+            <div>品级：<span>{{current.level | level}}</span></div>
+            <div>生日：<span>{{current.birthday | only_day}}</span></div>
+            <div>体型：<span>{{(current.$breed && current.$breed.type_size) | size }}</span></div>
           </div>
           <div class="price">
             <span>价格：</span>
@@ -39,9 +39,12 @@
             <div @click="create_order()" class="btn btn-lg buy">
               <span>购买</span>
             </div>
-            <div class="btn btn-lg">
+            <div v-if="pet_exist(pid)" class="btn btn-lg" disabled>
+              <span>已在购物车</span>
+            </div>
+            <div v-else @click="add_to_cart(current)" class="btn btn-lg">
               <span>加入购物车</span>
-              <img src="../assets/icons/right.png" alt="">
+              <img src="../assets/icons/right.png">
             </div>
           </div>
         </div>
@@ -50,11 +53,14 @@
 </template>
 
 <script>
-// eslint-disable-next-line
-import api from '../lib/api.js';
-import session from '../lib/session.js';
+import api from "../lib/api.js";
+import session from "../lib/session.js";
+import { pet_exist, all, add } from "../hub/cart.js";
 
 export default {
+  mounted() {
+    this.read(this.pid);
+  },
   props: {
     petId: {
       default: 1
@@ -63,29 +69,51 @@ export default {
   data() {
     return {
       current: {},
-    }
+      hub: all(),
+      pid: this.petId
+    };
   },
   methods: {
+    add_to_cart(row) {
+      if (!list.user_id) {
+        alert("清先登录~");
+        return;
+      }
+      add(row);
+    },
+    pet_exist: pet_exist,
     create_order() {
       let list = {};
 
-      list.sum = this.current.price || 10;
+      list.sum = this.current.price;
       list.oid = this.set_oid(this.current.id);
       list.user_id = session.uinfo() && session.uinfo().id;
+      list.product_info = [];
+      list.product_info.push(this.current);
 
-      if(!list.user_id) {
-        alert('清先登录~');
+      if (!list.user_id) {
+        alert("清先登录~");
         return;
       }
 
-      api('order/create', list).then(r => {
-        this.$router.push('/new_order/' + r.data.oid)        
+      api("order/create", list).then(r => {
+        this.$router.push("/new_order/" + r.data.oid);
       });
     },
     set_oid(id) {
       id = id || 2;
-      let t = new Date;
-      return t.getTime() + id + Math.round(Math.random()*10);
+      let t = new Date();
+      return t.getTime() + id + Math.round(Math.random() * 10);
+    },
+    read(id) {
+      api("pet/first", { where: { id: id }, with: "has_one:breed" }).then(r => {
+        this.current = r.data || [];
+      });
+    }
+  },
+  watch: {
+    petId(id) {
+      this.read(id);
     }
   }
 };
@@ -211,17 +239,7 @@ export default {
 }
 
 .buy {
-  background: #d64810;
   margin-right: 12px;
-}
-
-.buy span::after{
-  content: '￥';
-  margin-left: 8px;
-}
-
-.buy:hover {
-  background: #ff4800;
 }
 </style>
 

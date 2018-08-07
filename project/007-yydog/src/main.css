@@ -188,6 +188,11 @@ a {
   font-size: .9rem;
 }
 
+.btn-sm{
+  font-size: .8rem;
+  padding: 4px 20px;
+}
+
 .btn:hover{
   background: #00b365;
   transition: all .2s ease-in;
@@ -212,4 +217,17 @@ a {
 
 .btn:focus{
   outline: 0;
+}
+
+.btn.buy{
+  background: #ff4800;
+}
+
+.btn.buy:hover{
+  background: #f04806;
+}
+
+.buy span::after {
+  content: "￥";
+  margin-left: 8px;
 }

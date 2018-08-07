@@ -2,42 +2,31 @@
   <div class="content card">
     <h2 class="col-lg-3">宠物狗列表</h2>
     <div class="toor-bar col-lg-9">
-      <div class="col-lg-3">
-        <button @click="show_form=!show_form">添加宠物狗</button>
-      </div>
-
       <form @submit="search($event)" class="col-lg-9">
         <input type="search" v-model="keyword" placeholder="输入关键词回车搜索">
         <button type="submit" hidden></button>
       </form>
     </div>
-
-    <form v-if="show_form" @submit="cou($event)">
-      <div class="input-control">
-        <label>类别名</label>
-        <input type="text" v-model="current.name">
-      </div>
-      <div class="input-control">
-        <label>体型</label>
-        <input type="text" v-model="current.type">
-      </div>
-      <div class="input-control">
-        <button class="btn-primary" type="submit">提交</button>
-        <button class="btn-primary" type="button" @click="show_form=false;current={}">取消</button>
-      </div>
-    </form>
     <div class="table">
       <table>
         <thead>
           <th>种类名</th>
           <th>体型</th>
+          <th>性格</th>
+          <th>类型</th>
         </thead>
         <tbody>
-          <tr :key="row.id" v-for="(row, index) in list">
+          <tr :key="row.id" v-for="(row) in list">
             <td>{{row.name}}</td>
-            <td>{{row.type}}</td>
+            <td>{{row.type_size}}</td>
+            <td>{{row.type_feat || '-'}}</td>
+            <td>{{row.type_func}}</td>
             <td>
-              <button @click="update(index)">编辑</button>
+              <button v-if="!row.hot" @click="hot(row)">设置为热门</button>
+              <div v-else>
+                <span>已设置为热门</span><br>
+                <button @click="remove_hot(row)">取消热门</button>
+              </div>
               <button @click="remove(row.id)">删除</button>
             </td>
           </tr>
@@ -63,14 +52,20 @@
   export default {
     data () {
       return {
-        searchable: ['name'],
-        model:'breed'
+        searchable: ['name', 'type_size'],
+        model:'breed',
       };
     },
     methods: {
-      update(i) {
-        this.current = this.list[i];
-        this.show_form = true;
+      hot(row) {
+        this.current = row;
+        this.current.hot = true;
+        this.cou();
+      },
+      remove_hot(row) {
+        this.current = row;
+        this.current.hot = false;
+        this.cou();
       }
     },
     mixins : [AdminPage],

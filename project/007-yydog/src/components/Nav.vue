@@ -9,13 +9,18 @@
           <img src="../assets/logo.png" alt="home">
         </router-link>
       </div>
-      <div class="col-lg-3"></div>
+      <div class="col-lg-2">
+        <router-link to="/admin/user" class="a">管理页面</router-link>
+      </div>
       <div class="col-lg-2 right">
-        <span v-if="!loged" class="a" @click="show=!show">登录/注册</span>
+        <span v-if="!loged" class="a" @click="show_cart=false;show=!show">登录/注册</span>
         <span v-else>
-          <span class="a">{{username}}</span>&nbsp;
+          <router-link to="/me/order" class="a">{{username}}</router-link>&nbsp;
           <span class="a" @click="session.logout()">登出</span>
         </span>
+      </div>
+      <div class="col-lg-1">
+        <span class="a" @click="cart_show()">购物车</span>
       </div>
     </div>
     <transition name="login">
@@ -36,6 +41,12 @@
     <transition name="loged">
       <div v-if="show_success" class="loged">登录成功！</div>
     </transition>
+    <transition name="cart">
+      <div v-if="show_cart" class="cart">
+        <img src="../assets/icons/close.png" @click="show_cart=false">
+        <Cart />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -43,16 +54,18 @@
 import SearchBar from "./SearchBar";
 import Login from "./Login";
 import Signup from "./Signup";
+import Cart from "./Cart";
 import session from "../lib/session.js";
 
 export default {
-  components: { SearchBar, Login, Signup },
+  components: { SearchBar, Login, Signup, Cart },
   data() {
     return {
       show_login: true,
       show: false,
       loged: false,
       show_success: false,
+      show_cart: false,
       username: "",
       session: session
     };
@@ -70,9 +83,23 @@ export default {
     },
     is_loged() {
       let a = session.uinfo();
-      if (!a) return;
+      if (!a) return false;
+      
       this.username = session.uinfo() && session.uinfo().username;
       this.loged = true;
+      return true;
+    },
+    toggle_cart() {
+      this.show_cart = !this.show_cart;
+    },
+    cart_show() {
+       if (!this.is_loged()) {
+        alert("清先登录~");
+        this.show = true;
+        return;
+      }
+      this.show = false;
+      this.show_cart = !this.show_cart;
     }
   },
   mounted() {
@@ -123,6 +150,7 @@ export default {
   padding-right: 40px;
 }
 
+.cart,
 .login-or-signup {
   background: #fff;
   position: fixed;
@@ -136,6 +164,7 @@ export default {
   transition: all 0.2s;
 }
 
+.cart > img,
 .login-or-signup > img {
   position: absolute;
   right: 14px;
@@ -146,6 +175,7 @@ export default {
   cursor: pointer;
 }
 
+.cart > img:hover,
 .login-or-signup > img:hover {
   transform: rotateZ(0deg);
   transition: all 0.2s;
@@ -168,10 +198,14 @@ export default {
   padding: 10px 0 15px;
 }
 
+.cart-enter-active,
+.cart-leave-active,
 .login-enter-active,
 .login-leave-active {
   transition: all 0.5s;
 }
+
+.cart-enter, .cart-leave-to,
 .login-enter, .login-leave-to /* .fade-leave-active below version 2.1.8 */ {
   top: -250px;
   opacity: 0;

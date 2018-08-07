@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default api;
 
-const APP_KEY  = 'f26660c9c1fb154be7f305a590f9bca031225832cf58146046fc183a101a686a';
+const APP_KEY  = '8b3883cdcf10ab2be52557709153bb5f1f26dc74361068cd905cf478f7d596ef';
 const BASE_API = 'http://mock.biaoyansu.com/api/1/';
 
 function sign (app_key, timestamp) {

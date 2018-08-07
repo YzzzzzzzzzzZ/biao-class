@@ -16,6 +16,7 @@ import Breed from './page/admin/Breed'
 import Order from './page/admin/Order'
 
 import Me from './page/me/Me.vue'
+import MeOrder from './page/me/MeOrder.vue'
 
 
 
@@ -35,6 +36,22 @@ Vue.filter('percentage', function (value) {
     return 0;
   // return parseFloat(value).toFixed(2) * 100 + '%';
   return Math.round(value * 100) + '%';
+});
+
+Vue.filter('size', function (value) {
+  if (!value)
+    return '-';
+
+  return value.split('$')[0];
+});
+
+Vue.filter('level', function (value) {
+  if (!value)
+    return '-';
+
+  if (value == 1) return "宠物级";
+  else if (value == 2) return "血统级";
+  else return "赛级";
 });
 
 Vue.filter('age', function (birthday) {
@@ -115,9 +132,10 @@ const routes = [{
   {
     path: '/me/',
     component: Me,
-    children:[
-      // {path: 'order', component: MeOrder},
-    ]
+    children: [{
+      path: 'order',
+      component: MeOrder
+    }, ]
   },
   {
     path: '/admin/',

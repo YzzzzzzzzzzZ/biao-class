@@ -29,7 +29,7 @@
         <div class="col-lg-1"></div>
         <div @click="send_code" class="col-lg-4 tac code">
           <span v-if="captcha.countdown == 0">发送验证码</span>
-          <span v-else>{{captcha.countdown}}</span>
+          <span v-else>{{captcha.countdown}}s后重试</span>
         </div>
       </div>
       <div class="error-list">
