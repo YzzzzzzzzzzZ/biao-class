@@ -1,38 +1,44 @@
 <template>
-  <div>
-    <h2>您的订单</h2>
-    <div>订单号：{{current.oid}}</div>
-    <div>总价：{{current.sum}}元</div>
-    <div>
-      <p>订单详情：</p>
-      <table class="col-lg-8">
-        <tr v-for="it in current.product_info" :key="it.id">
-          <td>
-            <img :src="it.cover_url">
-          </td>
-          <td>
-            <router-link :to="`/detail/${it.id}`">{{it.title}}</router-link>
-          </td>
-          <td>
-            {{it.price}}元
-          </td>
-        </tr>
-      </table>
+  <div style="background:#f1f1f1;padding:10px 20px 0;">
+    <div><Nav /></div>
+    <div class="main">
+      <h2>您的订单</h2>
+      <div>订单号：{{current.oid}}</div>
+      <div>
+        <p>订单详情：</p>
+        <table class="col-lg-8">
+          <tr v-for="it in current.product_info" :key="it.id">
+            <td>
+              <img :src="it.cover_url">
+            </td>
+            <td>
+              <router-link :to="`/detail/${it.id}`">{{it.title}}</router-link>
+            </td>
+            <td>
+              {{it.price}}元
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="sum">总价： <span>{{current.sum}}</span> 元</div>
+      <div class="title">请选择支付方式</div>
+      <div class="pay-by row">
+        <label :class="{active: current.pay_by=='wechat','col-lg-6':true}" for="wechat" class="wechat"><img src="../assets/icons/wechat.png"></label>
+        <input type="radio" name="pay-by" id="wechat" value="wechat" v-model="current.pay_by" hidden>
+        <label :class="{active: current.pay_by=='alipay','col-lg-6':true}" for="alipay" class="alipay"><img src="../assets/icons/alipay.jpg"></label>
+        <input type="radio" name="pay-by" id="alipay" value="alipay" v-model="current.pay_by" hidden>
+      </div>
+      <div>
+        <div class="title">优惠活动</div>
+        <label for="discount">疯狂动物城！每单仅需1分钱！</label>
+        <input type="checkbox" name="discount" v-model="discount">
+      </div>
+      <div class="sum">需支付： <span>{{total}}</span> 元</div>
+      <div @click="pay" class="btn btn-lg">
+        <span>前往支付</span>
+        <img src="../assets/icons/right.png" alt="">
+      </div>
     </div>
-    <div>
-      {{current.pay_by}}
-      <label for="wechat">微信支付</label>
-      <input type="radio" name="pay-by" id="wechat" value="wechat" v-model="current.pay_by" hidden>
-      <label for="alipay">支付宝</label>
-      <input type="radio" name="pay-by" id="alipay" value="alipay" v-model="current.pay_by" hidden>
-    </div>
-    <div>
-      {{discount}}
-      <label for="discount">老板吐血大酬宾！每单仅需1分钱！</label>
-      <input type="checkbox" name="discount" v-model="discount">
-    </div>
-    <div>需支付：{{total}}元</div>
-    <span @click="pay">前往支付</span>
     <transition name="wechat">
       <div v-if="wechat" class="mask" @click="wechat=false">
         <div>
@@ -69,7 +75,7 @@ export default {
       }
     });
   },
-  component: { Nav },
+  components: { Nav },
   data() {
     return {
       wechat: false,
@@ -117,7 +123,8 @@ export default {
         if(r.data._paid){
           this.$router.push('/pay_for_success')
         }else{
-          alert('订单未支付！')
+          alert('订单未支付！');
+          this.wechat = true;
         }
       });
     }
@@ -135,6 +142,44 @@ export default {
 </script>
 
 <style scoped>
+.main{
+  margin-top: 90px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+.sum{
+  padding: 20px 0;
+  font-size: 1.2rem;
+}
+
+.sum span {
+  color: #ff4800;
+  font-weight: bold;
+}
+
+.title {
+  color: #333;
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+.pay-by{
+  padding: 10px 0;
+}
+
+.pay-by label{
+  padding: 20px;
+}
+
+.pay-by label.active {
+  outline: 2px solid #00c770;
+}
+
 .mask {
   position: fixed;
   z-index: 999;

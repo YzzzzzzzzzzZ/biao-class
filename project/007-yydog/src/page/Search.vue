@@ -2,9 +2,9 @@
   <div class="main">
     <Nav />
     <div class="search-area tac">
-      <form>
-        <input class="search" type="search">
-        <button class="btn btn-lg" type="submit">
+      <form @submit.prevent="set_keyword()">
+        <input v-model="search_params.keyword" class="search" type="search">
+        <button type="submit" class="btn btn-lg">
           <span>搜索</span>
         </button>
       </form>
@@ -12,259 +12,57 @@
     <div class="container search-criteria">
       <div>
         <p>犬种</p>
-        <div class="hot-breed">
-          <span class="active">热门</span>
-          <span :key="item.id" v-for="item in hot_list">{{item.name}}</span>
-          <span @click="show_more = !show_more" class="more right">
-            更多
-          </span>
-          <div v-if="show_more">
-            <div class="search-by-letter">
-              <span :class="{active: by == 'A'}" @click="by = 'A'">A</span>
-              <span :class="{active: by == 'B'}" @click="by = 'B'">B</span>
-              <span :class="{active: by == 'C'}" @click="by = 'C'">C</span>
-              <span :class="{active: by == 'D'}" @click="by = 'D'">D</span>
-              <span :class="{active: by == 'F'}" @click="by = 'F'">F</span>
-              <span :class="{active: by == 'G'}" @click="by = 'G'">G</span>
-              <span :class="{active: by == 'H'}" @click="by = 'H'">H</span>
-              <span :class="{active: by == 'J'}" @click="by = 'J'">J</span>
-              <span :class="{active: by == 'K'}" @click="by = 'K'">K</span>
-              <span :class="{active: by == 'L'}" @click="by = 'L'">L</span>
-              <span :class="{active: by == 'M'}" @click="by = 'M'">M</span>
-              <span :class="{active: by == 'N'}" @click="by = 'N'">N</span>
-              <span :class="{active: by == 'P'}" @click="by = 'P'">P</span>
-              <span :class="{active: by == 'Q'}" @click="by = 'Q'">Q</span>
-              <span :class="{active: by == 'R'}" @click="by = 'R'">R</span>
-              <span :class="{active: by == 'S'}" @click="by = 'S'">S</span>
-              <span :class="{active: by == 'T'}" @click="by = 'T'">T</span>
-              <span :class="{active: by == 'W'}" @click="by = 'W'">W</span>
-              <span :class="{active: by == 'X'}" @click="by = 'X'">X</span>
-              <span :class="{active: by == 'Y'}" @click="by = 'Y'">Y</span>
-              <span :class="{active: by == 'Z'}" @click="by = 'Z'">Z</span>
-            </div>
-            <div class="breed">
-              <span :key="item.id" v-for="item in breed_list" >{{item.name}}</span>
-            </div>
-          </div>
-        </div>
+        <SelectBreed @getBreed="set_breed_id"/>
       </div>
       <div>
         <p>价格</p>
-        <span class="active">不限</span>
-        <span>2500元以内</span>
-        <span>2500-3000元</span>
-        <span>3000-5000元</span>
-        <span>5000-8000元</span>
-        <span>8000元以上</span>
+        <span :class="{active: (!search_params.price_min && !search_params.price_max)}" @click="set_price_range()">不限</span>
+        <span :class="{active: (search_params.price_min == 0 && search_params.price_max == 2500)}" @click="set_price_range(0,2500)">2500元以内</span>
+        <span :class="{active: (search_params.price_min == 2500 && search_params.price_max == 3000)}" @click="set_price_range(2500,3000)">2500-3000元</span>
+        <span :class="{active: (search_params.price_min == 3000 && search_params.price_max == 5000)}" @click="set_price_range(3000,5000)">3000-5000元</span>
+        <span :class="{active: (search_params.price_min == 5000 && search_params.price_max == 8000)}" @click="set_price_range(5000,8000)">5000-8000元</span>
+        <span :class="{active: (search_params.price_min == 8000)}" @click="set_price_range(8000)">8000元以上</span>
       </div>
       <div>
         <p>品级</p>
-        <span class="active">不限</span>
-        <span >宠物级</span>
-        <span>血统级</span>
-        <span>赛级</span>
-      </div>
-      <div>
-        <p>月龄</p>
-        <span class="active">不限</span>
-        <span >2月龄以内</span>
-        <span>2-3月龄</span>
-        <span>3-6月龄</span>
-        <span>6月龄以上</span>
+        <span :class="{active: !search_params.level}" @click="set_where('level')">不限</span>
+        <span :class="{active: search_params.level == 1}" @click="set_where('level', 1)">宠物级</span>
+        <span :class="{active: search_params.level == 2}" @click="set_where('level', 2)">血统级</span>
+        <span :class="{active: search_params.level == 3}" @click="set_where('level', 3)">赛级</span>
       </div>
     </div>
     <div class="container row">
       <div class="search-list">
-        <div class="col-lg-4 detail-card">
+        <div :key="row.id" v-for="row in list"  class="col-lg-4 detail-card">
           <div class="star">
             <div>
               <img src="../assets/home/hero_MDx1.jpg">
             </div>
             <div class="detail-item tac">
               <div class="detail-title">
-                金毛 公 3个月 宠物级
+                {{row.title}}
               </div>
               <div class="price">
-                2500
+                {{row.price}}
               </div>
               <div class="btn-box">
-                <a href="##" class="btn btn-md">
+                <router-link :to="`/detail/${row.id}`" class="btn btn-md">
                   <span>查看详情</span>
                   <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 公 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 公 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 公 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 公 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 公 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 公 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 公 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 公 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
+                </router-link>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="pagination">
+      <Pagination 
+        :totalPage="last_page"
+        :currentPage="current_page"
+        maxBtn="3"
+        :onPageChange="on_page_change"
+      />
     </div>
   </div>
 </template>
@@ -275,35 +73,102 @@ import "../css/pet-list.css";
 import api from "../lib/api.js";
 
 import Nav from "../components/Nav";
+import SelectBreed from "../components/SelectBreed";
+import Pagination from "../components/Pagination";
 export default {
-  components: { Nav },
+  components: { Nav, SelectBreed, Pagination },
   mounted() {
-    this.read_breed_hot();
-    this.read_breed_by_letter();
+    this.search();
   },
   data() {
     return {
-      by: "A",
-      show_more: false,
-      hot_list: {},
-      breed_list: {}
+      last_page: 0,
+      current_page: 1,
+      list: [],
+      search_params: {}
     };
   },
   methods: {
-    read_breed_hot() {
-      api("breed/read", { where: { hot: true } }).then(r => {
-        this.hot_list = r.data;
+    set_breed_id(row) {
+      if(!row) {
+        this.set_where('breed_id');
+        return;
+      }
+      this.set_where('breed_id', row.id);
+    },
+    set_where(type, value) {
+      let condition = {};
+      if(!value) {
+        delete this.search_params[type];
+      }
+      condition[type] = value;
+      
+      let o = this.search_params;
+      let n = Object.assign({}, o, condition);
+
+      this.$router.replace({ query: n });
+    },
+    set_keyword() {
+      let query = Object.assign({}, this.$route.query);
+
+      query.keyword = this.search_params.keyword;
+
+      this.$router.replace({ query });
+    },
+    set_price_range(min, max) {
+      let query = Object.assign({}, this.$route.query);
+
+      if (!min && !max) {
+        delete query.price_min;
+        delete query.price_max;
+      } else {
+        let condition = {
+          price_min: min,
+          price_max: max
+        };
+        query = Object.assign({}, query, condition);
+      }
+
+      this.$router.replace({ query });
+    },
+    search(page = 1) {
+      this.search_params = Object.assign({}, this.$route.query);
+      let p = this.search_params;
+
+      let breed_query = "",
+        level_query = "",
+        price_min_query = "",
+        price_max_query = "";
+
+      p.breed_id && (breed_query = `and "breed_id" = ${p.breed_id}`);
+      p.level &&
+        (level_query = `and "level" = ${p.level}`);
+      p.price_min && (price_min_query = `and "price" >= ${p.price_min}`);
+      p.price_max && (price_max_query = `and "price" <= ${p.price_max}`);
+
+      let query = `where("title" contains "${p.keyword ||
+        ""}" ${breed_query} ${level_query} ${price_min_query} ${price_max_query})`;
+
+      api("pet/read", {
+        query:query,
+        limit: 12,
+        page: page
+      }).then(r => {
+        this.last_page = r.last_page;
+        this.current_page = r.current_page;
+        this.list = r.data;
       });
     },
-    read_breed_by_letter(by) {
-      api("breed/read", { where: { letter: by } }).then(r => {
-        this.breed_list = r.data;
-      });
+    on_page_change(page) {
+      this.search(page);
     }
   },
   watch: {
-    by (nby) {
-      this.read_breed_by_letter(nby);
+    "$route.query": {
+      deep: true,
+      handler() {
+        this.search();
+      }
     }
   }
 };

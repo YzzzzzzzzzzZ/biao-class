@@ -190,128 +190,23 @@
           <p>明星狗狗</p>
           <span>FAVORITE PET DOG</span>
         </div>
-        <div class="col-lg-4 detail-card">
+        <div :key="row.id" v-for="row in list"  class="col-lg-4 detail-card">
           <div class="star">
             <div>
               <img src="../assets/home/hero_MDx1.jpg">
             </div>
             <div class="detail-item tac">
               <div class="detail-title">
-                金毛 3个月 宠物级
+                {{row.title}}
               </div>
               <div class="price">
-                2500
+                {{row.price}}
               </div>
               <div class="btn-box">
-                <a href="##" class="btn btn-md">
+                <router-link :to="`/detail/${row.id}`" class="btn btn-md">
                   <span>查看详情</span>
                   <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 detail-card">
-          <div class="star">
-            <div>
-              <img src="../assets/home/hero_MDx1.jpg">
-            </div>
-            <div class="detail-item tac">
-              <div class="detail-title">
-                金毛 3个月 宠物级
-              </div>
-              <div class="price">
-                2500
-              </div>
-              <div class="btn-box">
-                <a href="##" class="btn btn-md">
-                  <span>查看详情</span>
-                  <img src="../assets/icons/right.png">
-                </a>
+                </router-link>
               </div>
             </div>
           </div>
@@ -330,9 +225,26 @@
 import "../main.css";
 import "../css/pet-list.css";
 
+import api from '../lib/api.js';
+
 import Nav from "../components/Nav";
 export default {
-  components: { Nav }
+  mounted() {
+    this.read();
+  },
+  components: { Nav },
+  data() {
+    return {
+      list:[],
+    }
+  },
+  methods: {
+    read() {
+      api('pet/read', {limit:6}).then(r => {
+        this.list = r.data;
+      })
+    }
+  },
 };
 </script>
 

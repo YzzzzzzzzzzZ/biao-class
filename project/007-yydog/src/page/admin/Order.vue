@@ -13,17 +13,21 @@
           <th>用户</th>
           <th>订单号</th>
           <th>总价</th>
-          <th>订单详情</th>
           <th>订单备注</th>
+          <th>查看详情</th>
           <th>操作</th>
         </thead>
         <tbody>
           <tr :key="row.id" v-for="row in list">
             <td>{{row.$user && row.$user.username || '-'}}</td>
             <td>{{row.oid}}</td>
-            <td>{{row.sum}}</td>
-            <td>{{row.product_info|| '-'}}</td>
-            <td>{{row.memo}}</td>
+            <td>{{row.sum}}元</td>
+            <td>{{row.memo || '-'}}</td>
+            <td>
+              <div @click="info=row.product_info;show=true" class="btn btn-sm">
+                <span>查看详情</span>
+              </div>
+            </td>
             <td v-if="row._paid">
               <span>实付：{{row._fee}}</span><br>
               <span>已付款</span>
@@ -50,6 +54,24 @@
       :onPageChange="on_page_change"
       />
     </div>
+    <transition name="product-info">
+      <div v-if="show" class="mask" @click="show=false">
+        <p>订单详情：</p>
+        <table class="col-lg-8">
+          <tr v-for="it in info" :key="it.id">
+            <td>
+              <img :src="it.cover_url">
+            </td>
+            <td>
+              <router-link :to="`/detail/${it.id}`">{{it.title}}</router-link>
+            </td>
+            <td>
+              {{it.price}}元
+            </td>
+          </tr>
+        </table>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -64,13 +86,14 @@ export default {
       searchable: ["name"],
       model: "order",
       with: {
-        model:'user',
-        relation: 'has_one'
-      }
+        model: "user",
+        relation: "has_one"
+      },
+      show: false,
+      info: []
     };
   },
-  methods: {
-  },
+  methods: {},
   mixins: [AdminPage]
 };
 </script>

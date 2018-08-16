@@ -3,7 +3,8 @@
     <h2 class="col-lg-3">宠物狗列表</h2>
     <div class="toor-bar col-lg-9">
       <div class="col-lg-3">
-        <button @click="show_form=!show_form">添加宠物狗</button>
+        <button @click="show_form=!show_form;breed={}">添加宠物狗</button>
+        <button @click="create_pet_many()">随机批量添加一次100条</button>
       </div>
 
       <form @submit="search($event)" class="col-lg-9">
@@ -12,11 +13,7 @@
       </form>
     </div>
 
-    <form v-if="show_form" @submit.prevent="create_title()">
-      <!-- <div class="input-control">
-        <label>标题</label>
-        <input type="text" v-model="current.title">
-      </div> -->
+    <form v-if="show_form" @submit.prevent="create_title();show_form=false">
       <div class="input-control">
         <label>价格</label>
         <input type="number" v-model="current.price">
@@ -34,7 +31,7 @@
       </div>
       <div class="input-control">
         <label>犬种</label>
-        <input v-model="current.breed_id">
+        <SelectBreed :breedId="breed.id" @getBreed="set_breed_id" />
       </div>
       <div class="input-control">
         <label>封面地址</label>
@@ -92,23 +89,45 @@ import "../../css/admin.css";
 
 import AdminPage from "../../mixin/AdminPage";
 
+import SelectBreed from '../../components/SelectBreed'
+
+import create_pet from '../../lib/create_pet.js'
+import api from '../../lib/api.js'
+
 export default {
+  components: {
+    SelectBreed
+  },
   data() {
     return {
       searchable: ["name"],
       model: "pet",
-      with: "has_one:breed"
+      with: "has_one:breed",
+      breed: {}
     };
   },
   methods: {
+    create_pet_many() {
+      let r = create_pet();
+
+      api('pet/create_many',{data:r}).then(() => {
+        this.read();
+      })
+    },
+    set_breed_id(row) {
+      this.current.breed_id = row.id;
+      this.breed = row;
+    },
     update(i) {
       this.current = this.list[i];
+      this.breed = this.current.$breed;
+      this.current.birthday = this.current.birthday.split(' ')[0];
       this.show_form = true;
     },
     create_title() {
       this.current.title =
         this.age(this.current.birthday) +
-        this.current.$breed.name +
+        this.breed.name +
         " " +
         this.level(this.current.level) +
         " " +
@@ -167,7 +186,7 @@ export default {
       }
 
       if (age_m >= 2) {
-        r = r + age_m + "个月";
+        r = r + age_m + "个月";[]
       } else if (age_m < 2) {
         if (age_m == 1 && age_d > 0) {
           age_d = age_d + day;

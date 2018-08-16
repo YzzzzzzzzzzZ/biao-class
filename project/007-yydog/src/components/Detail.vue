@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     add_to_cart(row) {
-      if (!list.user_id) {
+      if (!session.uinfo()) {
         alert("清先登录~");
         return;
       }
